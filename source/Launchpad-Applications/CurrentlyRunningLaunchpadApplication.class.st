@@ -7,6 +7,9 @@ Class {
 	#classVars : [
 		'uniqueInstance'
 	],
+	#gs_options : [
+    'dbTransient'
+  ],
 	#category : 'Launchpad-Applications',
 	#package : 'Launchpad-Applications'
 }
