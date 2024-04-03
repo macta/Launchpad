@@ -8,8 +8,8 @@ Class {
 		'commandServer'
 	],
 	#gs_options : [
-    'dbTransient'
-  ],
+		'dbTransient'
+	],
 	#category : 'Launchpad-Applications',
 	#package : 'Launchpad-Applications'
 }
