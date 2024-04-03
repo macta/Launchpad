@@ -25,6 +25,6 @@ LaunchpadApplicationTransientTest >> testAccessingRunningApplication [
 { #category : #running }
 LaunchpadApplicationTransientTest >> tearDown [
 
-	CurrentlyRunningLaunchpadApplication new resetCurrentlyRunning
-	super tearDown.
+	CurrentlyRunningLaunchpadApplication new resetCurrentlyRunning.
+	super tearDown
 ]
