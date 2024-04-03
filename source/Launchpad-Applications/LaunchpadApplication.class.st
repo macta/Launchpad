@@ -7,6 +7,9 @@ Class {
 		'mode',
 		'commandServer'
 	],
+	#gs_options : [
+		'dbTransient'
+	],
 	#category : 'Launchpad-Applications',
 	#package : 'Launchpad-Applications'
 }
