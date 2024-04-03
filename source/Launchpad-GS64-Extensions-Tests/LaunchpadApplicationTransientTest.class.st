@@ -1,6 +1,3 @@
-"
-That class tests the API given by AbstractUserInput. Since that class is obviously abstract, it can't be instantiated, the tests are running on CommandLine (which inherits from AbstractUserInput)
-"
 Class {
 	#name : #LaunchpadApplicationTransientTest,
 	#superclass : #TestCase,
