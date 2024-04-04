@@ -1,10 +1,11 @@
 Class {
-	#name : #VersionFromRepositoryResolver,
-	#superclass : #Object,
-	#category : #BaselineOfLaunchpad
+	#name : 'VersionFromRepositoryResolver',
+	#superclass : 'Object',
+	#category : 'BaselineOfLaunchpad',
+	#package : 'BaselineOfLaunchpad'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 VersionFromRepositoryResolver >> valueFor: projectName [
 
 	| packageName version |
@@ -21,7 +22,7 @@ VersionFromRepositoryResolver >> valueFor: projectName [
 	^ version
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VersionFromRepositoryResolver >> versionFromGitRepository: repository [
 
 	| projectCommitish |
@@ -40,7 +41,7 @@ VersionFromRepositoryResolver >> versionFromGitRepository: repository [
 		  ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 VersionFromRepositoryResolver >> versionFromMonticelloRepository: aPackageName [
 
 	self class environment at: #MCWorkingCopy ifPresent: [ :workingCopy | 

@@ -1,21 +1,24 @@
 Class {
-	#name : #BaselineOfLaunchpad,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfLaunchpad
+	#name : 'BaselineOfLaunchpad',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfLaunchpad',
+	#package : 'BaselineOfLaunchpad'
 }
 
-{ #category : #'post-load actions' }
-BaselineOfLaunchpad >> addLaunchpadLogRecordAsGlobal [
+{ #category : 'post-load actions' }
+BaselineOfLaunchpad >> addLaunchpadLogRecordAsGlobalAndConfigureTransientClasses [
 
-	Smalltalk at: #LaunchpadLogRecord put: LogRecord
+	Smalltalk at: #LaunchpadLogRecord put: LogRecord.
+	LaunchpadApplication makeInstancesDbTransient.
+	CurrentlyRunningLaunchpadApplication makeInstancesDbTransient
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> baseline: spec [
 
 	<baseline>
 	spec for: #pharo do: [
-		spec postLoadDoIt: #addLaunchpadLogRecordAsGlobal.
+		spec postLoadDoIt: #addLaunchpadLogRecordAsGlobalAndConfigureTransientClasses.
 		self
 			setUpDependencies: spec;
 			setUpPackages: spec.
@@ -33,7 +36,7 @@ BaselineOfLaunchpad >> baseline: spec [
 		spec preLoadDoIt: #closeWelcomeWindow ]
 ]
 
-{ #category : #'post-load actions' }
+{ #category : 'post-load actions' }
 BaselineOfLaunchpad >> closeWelcomeWindow [
 	"Workaround for https://github.com/pharo-project/pharo/issues/13788"
 
@@ -44,13 +47,13 @@ BaselineOfLaunchpad >> closeWelcomeWindow [
 	Smalltalk garbageCollect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaselineOfLaunchpad >> projectClass [
 
 	^ MetacelloCypressBaselineProject
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpDependencies: spec [
 
 	spec
@@ -75,7 +78,7 @@ BaselineOfLaunchpad >> setUpDependencies: spec [
 		with: [ spec loads: 'Dependent-SUnit-Extensions' ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpDeploymentPackages: spec [
 
 	spec
@@ -117,7 +120,7 @@ BaselineOfLaunchpad >> setUpDeploymentPackages: spec [
 		group: 'Deployment' with: 'Launchpad-Tracing'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpExamplePackages: spec [
 
 	spec
@@ -125,7 +128,7 @@ BaselineOfLaunchpad >> setUpExamplePackages: spec [
 		group: 'Examples' with: #( 'Deployment' 'Launchpad-Examples' )
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpPackages: spec [
 
 	self
@@ -137,7 +140,7 @@ BaselineOfLaunchpad >> setUpPackages: spec [
 	spec group: 'Tools' with: 'Buoy-Tools'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpPharo10Packages: spec [
 
 	spec
@@ -151,7 +154,7 @@ BaselineOfLaunchpad >> setUpPharo10Packages: spec [
 		group: 'Tools' with: 'Launchpad-Development-Tools'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpPharo11Packages: spec [
 
 	spec
@@ -160,7 +163,7 @@ BaselineOfLaunchpad >> setUpPharo11Packages: spec [
 		group: 'Tests' with: 'Launchpad-Tracing-Fuel'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpPharo8Packages: spec [
 
 	spec
@@ -173,7 +176,7 @@ BaselineOfLaunchpad >> setUpPharo8Packages: spec [
 		group: 'Deployment' with: 'Launchpad-Tracing-Pharo8'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpPharo9Packages: spec [
 
 	spec
@@ -182,7 +185,7 @@ BaselineOfLaunchpad >> setUpPharo9Packages: spec [
 		group: 'Tests' with: 'Launchpad-Tracing-Fuel-Legacy'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpSUnitPackages: spec [
 
 	spec
@@ -192,7 +195,7 @@ BaselineOfLaunchpad >> setUpSUnitPackages: spec [
 		group: 'Dependent-SUnit-Extensions' with: 'Launchpad-SUnit'
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfLaunchpad >> setUpTestPackages: spec [
 
 	spec

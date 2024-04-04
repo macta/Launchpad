@@ -18,9 +18,7 @@ Class {
 CurrentlyRunningLaunchpadApplication class >> initialize [
 
 	<ignoreForCoverage>
-	self
-		initializeUniqueInstance;
-		makeInstancesDbTransient
+	self initializeUniqueInstance
 ]
 
 { #category : 'initialization' }
