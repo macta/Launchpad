@@ -7,11 +7,11 @@ Class {
 		'mode',
 		'commandServer'
 	],
-	#gs_options : [
-		'dbTransient'
-	],
 	#category : 'Launchpad-Applications',
-	#package : 'Launchpad-Applications'
+	#package : 'Launchpad-Applications',
+	#'gs_options' : [
+		'dbTransient'
+	]
 }
 
 { #category : 'accessing' }

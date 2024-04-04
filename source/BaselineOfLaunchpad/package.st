@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfLaunchpad }
+Package { #name : 'BaselineOfLaunchpad' }
