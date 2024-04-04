@@ -7,18 +7,20 @@ Class {
 	#classVars : [
 		'uniqueInstance'
 	],
-	#gs_options : [
-		'dbTransient'
-	],
 	#category : 'Launchpad-Applications',
-	#package : 'Launchpad-Applications'
+	#package : 'Launchpad-Applications',
+	#'gs_options' : [
+		'dbTransient'
+	]
 }
 
-{ #category : 'initialization' }
+{ #category : 'class initialization' }
 CurrentlyRunningLaunchpadApplication class >> initialize [
 
 	<ignoreForCoverage>
-	self initializeUniqueInstance
+	self
+		initializeUniqueInstance;
+		makeInstancesDbTransient
 ]
 
 { #category : 'initialization' }

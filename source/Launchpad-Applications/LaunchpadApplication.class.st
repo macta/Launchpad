@@ -7,11 +7,11 @@ Class {
 		'mode',
 		'commandServer'
 	],
-	#gs_options : [
-		'dbTransient'
-	],
 	#category : 'Launchpad-Applications',
-	#package : 'Launchpad-Applications'
+	#package : 'Launchpad-Applications',
+	#'gs_options' : [
+		'dbTransient'
+	]
 }
 
 { #category : 'accessing' }
@@ -52,6 +52,13 @@ LaunchpadApplication class >> currentlyRunning [
 LaunchpadApplication class >> description [
 
 	^ self subclassResponsibility
+]
+
+{ #category : 'class initialization' }
+LaunchpadApplication class >> initialize [
+
+	<ignoreForCoverage>
+	self makeInstancesDbTransient
 ]
 
 { #category : 'testing' }
