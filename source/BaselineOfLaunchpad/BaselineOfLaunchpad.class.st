@@ -160,7 +160,12 @@ BaselineOfLaunchpad >> setUpPharo11Packages: spec [
 	spec
 		package: 'Launchpad-Tracing-Fuel' with: [ spec requires: 'Launchpad-Tracing' ];
 		group: 'Deployment' with: 'Launchpad-Tracing-Fuel';
-		group: 'Tests' with: 'Launchpad-Tracing-Fuel'
+		group: 'Tests' with: 'Launchpad-Tracing-Fuel'.
+
+	spec
+		package: 'Launchpad-Development-Tools'
+		with: [ spec requires: #( 'Launchpad-Applications' 'Launchpad-Configuration' ) ];
+		group: 'Tools' with: 'Launchpad-Development-Tools'
 ]
 
 { #category : 'baselines' }
