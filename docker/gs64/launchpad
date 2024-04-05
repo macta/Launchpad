@@ -26,16 +26,18 @@ termination_handler() {
 
 trap 'termination_handler' SIGTERM
 
-# shellcheck disable=SC2086
-startnetldi \
-  -g \
-  -a "${GS_USER}" \
-  -n \
-  -P "${NETLDI_PORT}" \
-  -l "${GEMSTONE_LOG_DIR}/${NETLDI_SERVICE_NAME}.log" \
-  -D "${GEMSTONE_LOG_DIR}" \
-  ${NETLDI_ARGS:-} \
-  "${NETLDI_SERVICE_NAME}" >> "${GEMSTONE_LOG_DIR}/startnetldi.log"
+if ! gslist -v -n "${NETLDI_SERVICE_NAME}" > /dev/null; then
+  # shellcheck disable=SC2086
+  startnetldi \
+    -g \
+    -a "${GS_USER}" \
+    -n \
+    -P "${NETLDI_PORT}" \
+    -l "${GEMSTONE_LOG_DIR}/${NETLDI_SERVICE_NAME}.log" \
+    -D "${GEMSTONE_LOG_DIR}" \
+    ${NETLDI_ARGS:-} \
+    "${NETLDI_SERVICE_NAME}" >> "${GEMSTONE_LOG_DIR}/startnetldi.log"
+fi
 
 # list GemStone services
 gslist -cvl >> "${GEMSTONE_LOG_DIR}/startnetldi.log"
