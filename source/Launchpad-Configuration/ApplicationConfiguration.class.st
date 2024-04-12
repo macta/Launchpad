@@ -125,7 +125,7 @@ ApplicationConfiguration >> containingSectionFor: parameter startingAt: resolved
 { #category : #'reflective operations' }
 ApplicationConfiguration >> doesNotUnderstand: message [
 
-	^ values at: message selector ifAbsent: [ super doesNotUnderstand: message ]
+	^ self valueAt: message selector ifAbsent: [ super doesNotUnderstand: message ]
 ]
 
 { #category : #initialization }
@@ -190,6 +190,22 @@ ApplicationConfiguration >> signalAsConflictingParameter: parameter [
 ApplicationConfiguration >> synchronizeValuesWith: resolvedValues [
 
 	values := resolvedValues
+]
+
+{ #category : #'reflective operations' }
+ApplicationConfiguration >> valueAt: aKey [
+	"For configuration access without DNU handling, provide standard Dictionary api. 
+	With normal configuration parameters, there should never be an absent value, but answer nil just in case"
+	
+	^self valueAt: aKey ifAbsent: [ nil ]
+]
+
+{ #category : #'reflective operations' }
+ApplicationConfiguration >> valueAt: aKey ifAbsent: aBlock [
+	"For configuration access without DNU handling, provide standard Dictionary api. 
+	With normal configuration parameters, there should never be an absent value, but provide the standard ifAbsent option for correctness"
+	
+	^ values at: aKey ifAbsent: aBlock
 ]
 
 { #category : #accessing }

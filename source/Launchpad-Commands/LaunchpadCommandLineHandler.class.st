@@ -4,10 +4,35 @@ Class {
 	#category : #'Launchpad-Commands'
 }
 
+{ #category : #'instance creation' }
+LaunchpadCommandLineHandler class >> activateInContext: aProcessingContext [
+
+	^ self new
+		commandLine: aProcessingContext commandLine;
+		activateWithContext: aProcessingContext
+]
+
+{ #category : #'instance creation' }
+LaunchpadCommandLineHandler class >> activateWith: aCommandLine [
+
+	^ self activateInContext: (self defaultContextForCommandLine:
+			   (self prepareSubcommand: aCommandLine))
+]
+
 { #category : #accessing }
 LaunchpadCommandLineHandler class >> commandName [
 
 	^ LaunchpadRootCommand commandName
+]
+
+{ #category : #'instance creation' }
+LaunchpadCommandLineHandler class >> defaultContextForCommandLine: commandLine [
+
+	^ (LaunchpadCommandLineProcessingContext
+		   		handling: commandLine
+		   		writingTo: VTermOutputDriver stdout)
+		  usePlatformLineEnding;
+		  yourself
 ]
 
 { #category : #accessing }
@@ -18,8 +43,13 @@ LaunchpadCommandLineHandler class >> description [
 
 { #category : #activation }
 LaunchpadCommandLineHandler >> activate [
+	"shouldn't really be called anymore, divert to #activateWithContext:"
+	
+	self activateWithContext: (self class defaultContextForCommandLine: self commandLine)
+]
 
-	| context |
+{ #category : #activation }
+LaunchpadCommandLineHandler >> activateWithContext: context [
 
 	Processor activeProcess name: 'Launchpad CLI'.
 
@@ -28,7 +58,5 @@ LaunchpadCommandLineHandler >> activate [
 	StandardStreamLogger onStandardError startFor:
 		( LogRecord where: [ :record | record isInformational not ] ).
 
-	context := LaunchpadCommandLineProcessingContext handling: commandLine writingTo: self stdout.
-	context usePlatformLineEnding.
 	LaunchpadRootCommand new evaluateWithin: context
 ]

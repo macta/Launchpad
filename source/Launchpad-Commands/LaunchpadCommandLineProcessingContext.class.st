@@ -15,6 +15,11 @@ LaunchpadCommandLineProcessingContext class >> handling: aCommandLine writingTo:
 ]
 
 { #category : #accessing }
+LaunchpadCommandLineProcessingContext >> commandLine [
+	^ commandLine
+]
+
+{ #category : #accessing }
 LaunchpadCommandLineProcessingContext >> configurationProviderChainedWith: aConfigurationProvider [
 
 	^ ConfigurationFromCommandLineProvider over: commandLine chainedWith: aConfigurationProvider
@@ -60,6 +65,11 @@ LaunchpadCommandLineProcessingContext >> nextCommandLineArgumentIfNone: aFailBlo
 LaunchpadCommandLineProcessingContext >> outputStreamDo: aBlock [
 
 	aBlock value: output
+]
+
+{ #category : #utilities }
+LaunchpadCommandLineProcessingContext >> run: aBlock withArguments: aCollection [
+	aBlock cull: aCollection 
 ]
 
 { #category : #configuration }
