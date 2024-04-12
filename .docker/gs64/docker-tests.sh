@@ -50,6 +50,13 @@ function assertOutputIncludesMessage() {
 
 set -e
 
+if [ $# -eq 0 ]; then
+  print_error "Missing GS64 version argument. Eg. 3.7.0"
+  exit 1
+fi
+
+readonly GS64_VERSION="$1"
+
 print_info "Creating network"
 if docker network inspect launchpad-net > /dev/null 2>&1 ;then
   docker network rm launchpad-net
@@ -69,14 +76,14 @@ docker run --rm --detach --name gs64-stone \
   --volume="$PWD":/opt/gemstone/projects/Launchpad:ro \
   --volume="$PWD"/.docker/gs64/gem.conf:/opt/gemstone/conf/gem.conf \
   --volume="$PWD"/.docker/gs64/gemstone.key:/opt/gemstone/product/sys/gemstone.key:ro \
-  ghcr.io/ba-st/gs64-rowan:v3.7.0
+  ghcr.io/ba-st/gs64-rowan:v"$GS64_VERSION"
 
 sleep 1
 print_info "Loading Launchpad in the stone"
 docker exec -t -u gemstone gs64-stone ./load-rowan-project.sh Launchpad
 
 print_info "Building base gem"
-docker buildx build --tag launchpad-gs64:sut docker/gs64
+docker buildx build --tag launchpad-gs64:sut docker/gs64-"$GS64_VERSION"
 
  print_info "Building examples gem"
  docker buildx build \

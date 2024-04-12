@@ -10,6 +10,12 @@ on:
 jobs:
    build_and_publish:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - 3.7.0
+          - 3.7.1
     name: Build and Publish Docker images
     steps:
       - name: Checkout
@@ -18,7 +24,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/launchpad-gs64
+          images: ghcr.io/${{ github.repository_owner }}/launchpad-gs64-{{ matrix.version }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Login to Container Registry
@@ -31,7 +37,7 @@ jobs:
       - name: Docker build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./docker/gs64
+          context: ./docker/gs64-{{ matrix.version }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
