@@ -9,8 +9,10 @@ Class {
 BaselineOfLaunchpad >> addLaunchpadLogRecordAsGlobalAndConfigureTransientClasses [
 
 	Smalltalk at: #LaunchpadLogRecord put: LogRecord.
-	LaunchpadApplication makeInstancesDbTransient.
-	CurrentlyRunningLaunchpadApplication makeInstancesDbTransient
+	self configureAsTransientInstancesOfAll: {
+			ApplicationConfiguration.
+			CurrentlyRunningLaunchpadApplication.
+			LaunchpadApplication }
 ]
 
 { #category : 'baselines' }
@@ -45,6 +47,12 @@ BaselineOfLaunchpad >> closeWelcomeWindow [
 		ifPresent: [ :class |
 		class allInstancesDo: [ :browser | browser owner close ] ].
 	Smalltalk garbageCollect
+]
+
+{ #category : 'post-load actions' }
+BaselineOfLaunchpad >> configureAsTransientInstancesOfAll: aClassCollection [
+
+	aClassCollection do: #makeInstancesDbTransient
 ]
 
 { #category : 'accessing' }
