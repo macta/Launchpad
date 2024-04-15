@@ -6,6 +6,13 @@ on:
 jobs:
    unit-tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - "3.7.0"
+          - "3.7.1"
+    name: GS64 v${{ matrix.version }} Docker Tests
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,6 +23,6 @@ jobs:
         env:
           GS_KEYFILE: ${{ secrets.GS_KEYFILE }}
       - name: Run tests using Docker
-        run: ./.docker/gs64/docker-tests.sh
+        run: ./.docker/gs64/docker-tests.sh ${{ matrix.version }}
       - name: Remove keyfile
         run: rm -f ./.docker/gs64/gemstone.key
