@@ -195,9 +195,9 @@ ApplicationConfiguration >> synchronizeValuesWith: resolvedValues [
 { #category : #'reflective operations' }
 ApplicationConfiguration >> valueAt: aKey [
 	"For configuration access without DNU handling, provide standard Dictionary api. 
-	With normal configuration parameters, there should never be an absent value, but answer nil just in case"
+	With normal configuration parameters, there should never be an absent value, so use default Dictionary error handling for an absent key"
 	
-	^self valueAt: aKey ifAbsent: [ nil ]
+	^values at: aKey
 ]
 
 { #category : #'reflective operations' }

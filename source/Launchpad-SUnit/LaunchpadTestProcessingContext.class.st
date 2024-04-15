@@ -15,7 +15,7 @@ Class {
 	#instVars : [
 		'runArguments'
 	],
-	#category : #'Launchpad-Commands'
+	#category : #'Launchpad-SUnit'
 }
 
 { #category : #'instance creation' }

@@ -30,7 +30,7 @@ LaunchpadCommandLineHandler class >> defaultContextForCommandLine: commandLine [
 
 	^ (LaunchpadCommandLineProcessingContext
 		   		handling: commandLine
-		   		writingTo: VTermOutputDriver stdout)
+		   		writingTo: Stdio stdout)
 		  usePlatformLineEnding;
 		  yourself
 ]

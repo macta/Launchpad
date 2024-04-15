@@ -2,17 +2,17 @@
 A LaunchpadDemoRunnerApplicationTest is a test class for testing the behavior of LaunchpadDemoRunnerApplication
 "
 Class {
-	#name : #LaunchpadDemoRunnerApplicationTest,
+	#name : #LaunchpadHTTPServerDemoApplicationTest,
 	#superclass : #TestCase,
 	#category : #'Launchpad-Configuration-Tests'
 }
 
 { #category : #tests }
-LaunchpadDemoRunnerApplicationTest >> testStartingApplicationWithDebugAndPort [
+LaunchpadHTTPServerDemoApplicationTest >> testStartingApplicationWithDebugAndPort [
 
 	| commandLine testContext |
 	
-	commandLine := CommandLineArguments withArguments: #('start' 'DemoRunner' '--log-requests=true' '--port=8081').
+	commandLine := CommandLineArguments withArguments: #('start' 'HTTPServerDemo' '--log-requests=true' '--port=8081').
 	testContext := LaunchpadTestProcessingContext handling: commandLine.
    LaunchpadCommandLineHandler activateInContext: testContext.
 
@@ -20,11 +20,11 @@ LaunchpadDemoRunnerApplicationTest >> testStartingApplicationWithDebugAndPort [
 ]
 
 { #category : #tests }
-LaunchpadDemoRunnerApplicationTest >> testStartingApplicationWithDebugDefaultPort [
+LaunchpadHTTPServerDemoApplicationTest >> testStartingApplicationWithDebugDefaultPort [
 
 	| commandLine testContext |
 	
-	commandLine := CommandLineArguments withArguments: #('start' 'DemoRunner' '--log-requests=true').
+	commandLine := CommandLineArguments withArguments: #('start' 'HTTPServerDemo' '--log-requests=true').
 	testContext := LaunchpadTestProcessingContext handling: commandLine.
    LaunchpadCommandLineHandler activateInContext: testContext.
 
@@ -32,11 +32,11 @@ LaunchpadDemoRunnerApplicationTest >> testStartingApplicationWithDebugDefaultPor
 ]
 
 { #category : #tests }
-LaunchpadDemoRunnerApplicationTest >> testStartingApplicationWithDefaults [
+LaunchpadHTTPServerDemoApplicationTest >> testStartingApplicationWithDefaults [
 
 	| commandLine testContext |
 	
-	commandLine := CommandLineArguments withArguments: #('start' 'DemoRunner').
+	commandLine := CommandLineArguments withArguments: #('start' 'HTTPServerDemo').
 	testContext := LaunchpadTestProcessingContext handling: commandLine.
    LaunchpadCommandLineHandler activateInContext: testContext.
 

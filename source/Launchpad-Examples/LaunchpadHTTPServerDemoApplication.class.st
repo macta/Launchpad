@@ -1,17 +1,17 @@
 Class {
-	#name : #LaunchpadDemoRunnerApplication,
+	#name : #LaunchpadHTTPServerDemoApplication,
 	#superclass : #LaunchpadApplication,
 	#category : #'Launchpad-Examples'
 }
 
 { #category : #accessing }
-LaunchpadDemoRunnerApplication class >> commandName [
+LaunchpadHTTPServerDemoApplication class >> commandName [
 
-	^ 'DemoRunner'
+	^ 'HTTPServerDemo'
 ]
 
 { #category : #'private - accessing' }
-LaunchpadDemoRunnerApplication class >> configurationParameters [
+LaunchpadHTTPServerDemoApplication class >> configurationParameters [
 
 ^ { OptionalConfigurationParameter
       named: #'log-requests'
@@ -25,13 +25,13 @@ LaunchpadDemoRunnerApplication class >> configurationParameters [
 ]
 
 { #category : #accessing }
-LaunchpadDemoRunnerApplication class >> description [
+LaunchpadHTTPServerDemoApplication class >> description [
 
 	^ 'Launchpad demo http app'
 ]
 
 { #category : #example }
-LaunchpadDemoRunnerApplication class >> startServer [
+LaunchpadHTTPServerDemoApplication class >> startServer [
 	<script>
 	"This would really be in its own class, but here to demonstrate a simple example of a running application to start via the command line.
 	When using: launchpad start DemoRunner --log-requests=true"
@@ -40,7 +40,7 @@ LaunchpadDemoRunnerApplication class >> startServer [
 ]
 
 { #category : #example }
-LaunchpadDemoRunnerApplication class >> startServerOn: port debug: debug [
+LaunchpadHTTPServerDemoApplication class >> startServerOn: port debug: debug [
 	"This would really be in its own class, but here to demonstrate a simple example"
 	
 	| server |
@@ -51,7 +51,7 @@ LaunchpadDemoRunnerApplication class >> startServerOn: port debug: debug [
 ]
 
 { #category : #example }
-LaunchpadDemoRunnerApplication class >> stopServer [
+LaunchpadHTTPServerDemoApplication class >> stopServer [
 	<script>
 	"This would really be in its own class, but here to demonstrate a simple example"
 	
@@ -60,13 +60,13 @@ LaunchpadDemoRunnerApplication class >> stopServer [
 ]
 
 { #category : #accessing }
-LaunchpadDemoRunnerApplication class >> version [
+LaunchpadHTTPServerDemoApplication class >> version [
 
 	^ 'v1.0.0'
 ]
 
 { #category : #'private - activation' }
-LaunchpadDemoRunnerApplication >> basicStartWithin: context [
+LaunchpadHTTPServerDemoApplication >> basicStartWithin: context [
 	"This is an example of a launcher using a testable #run:withArguments: pattern. See the example test "
 	
 	context outputStreamDo: [ :stream | 
@@ -78,7 +78,7 @@ LaunchpadDemoRunnerApplication >> basicStartWithin: context [
 			run: [ :debug :port | 
 				"This would be something to call in your own application class"
 				
-				LaunchpadDemoRunnerApplication startServerOn: port debug: debug ]
+				LaunchpadHTTPServerDemoApplication startServerOn: port debug: debug ]
 			withArguments: { 
 				(self configuration valueAt: #'log-requests') asBoolean.
 				(self configuration valueAt: #'port') asInteger }
@@ -87,7 +87,7 @@ LaunchpadDemoRunnerApplication >> basicStartWithin: context [
 ]
 
 { #category : #'error handling' }
-LaunchpadDemoRunnerApplication >> stackTraceDumper [
+LaunchpadHTTPServerDemoApplication >> stackTraceDumper [
 
-	^ StackTraceDumper new
+	^ StackTraceTextDumper new
 ]
