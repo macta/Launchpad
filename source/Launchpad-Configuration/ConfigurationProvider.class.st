@@ -1,23 +1,24 @@
 Class {
-	#name : #ConfigurationProvider,
-	#superclass : #Object,
-	#category : #'Launchpad-Configuration'
+	#name : 'ConfigurationProvider',
+	#superclass : 'Object',
+	#category : 'Launchpad-Configuration',
+	#package : 'Launchpad-Configuration'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 ConfigurationProvider class >> isAbstract [
 
 	<ignoreForCoverage>
 	^ self =  ConfigurationProvider
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 ConfigurationProvider >> reloadConfiguration [
 
 	self subclassResponsibility
 ]
 
-{ #category : #resolving }
+{ #category : 'resolving' }
 ConfigurationProvider >> valueFor: aConfigurationParameter ifFound: aPresentBlock ifNone: aFailBlock [
 
 	self subclassResponsibility
