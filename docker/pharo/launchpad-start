@@ -10,7 +10,8 @@ fi
 termination_handler() {
   exit_status=0
   if [ $pid -ne 0 ]; then
-    echo '\nSIGTERM received, shutting down the application'
+    echo
+    echo 'SIGTERM received, shutting down the application'
     echo "SHUTDOWN" | nc localhost $LAUNCHPAD__COMMAND_SERVER_PORT
     wait "$pid"
     exit_status=$?
