@@ -69,7 +69,7 @@ LaunchpadCommandLineProcessingContext >> outputStreamDo: aBlock [
 
 { #category : #utilities }
 LaunchpadCommandLineProcessingContext >> run: aBlock withArguments: aCollection [
-	aBlock cull: aCollection 
+	^aBlock valueWithEnoughArguments: aCollection 
 ]
 
 { #category : #configuration }
