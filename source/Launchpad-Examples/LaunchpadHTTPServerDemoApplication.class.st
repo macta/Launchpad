@@ -89,5 +89,5 @@ LaunchpadHTTPServerDemoApplication >> basicStartWithin: context [
 { #category : #'error handling' }
 LaunchpadHTTPServerDemoApplication >> stackTraceDumper [
 
-	^ StackTraceTextDumper new
+	^ self newStackTraceDumperOnStandardError
 ]
