@@ -2,12 +2,13 @@
 A ConfigurationFromEnvironmentProviderTest is a test class for testing the behavior of ConfigurationFromEnvironmentProvider
 "
 Class {
-	#name : #ConfigurationFromEnvironmentProviderTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'ConfigurationFromEnvironmentProviderTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ConfigurationFromEnvironmentProviderTest >> set: environmentVariableName to: value during: aBlock [
 
 	LanguagePlatform current os
@@ -18,7 +19,7 @@ ConfigurationFromEnvironmentProviderTest >> set: environmentVariableName to: val
 			environmentVariableName ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testMandatoryConfigurationParameterValue [
 
 	| provider parameter |
@@ -33,7 +34,7 @@ ConfigurationFromEnvironmentProviderTest >> testMandatoryConfigurationParameterV
 		self assert: ( parameter resolveValueUsing: provider ifUnable: [ self fail ] ) equals: 'localhost' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testMandatoryConfigurationParameterValueMissing [
 
 	| provider parameter |
@@ -48,7 +49,7 @@ ConfigurationFromEnvironmentProviderTest >> testMandatoryConfigurationParameterV
 		equals: 'example.com'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testOptionalConfigurationParameterValue [
 
 	| provider parameter |
@@ -66,7 +67,7 @@ ConfigurationFromEnvironmentProviderTest >> testOptionalConfigurationParameterVa
 		]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testOptionalConfigurationParameterValueUsingDefault [
 
 	| provider parameter |
@@ -81,7 +82,7 @@ ConfigurationFromEnvironmentProviderTest >> testOptionalConfigurationParameterVa
 	self assert: ( parameter resolveValueUsing: provider ifUnable: [ self fail ] ) equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testSensitiveMandatoryConfigurationParameterValue [
 
 	| provider parameter |
@@ -96,7 +97,7 @@ ConfigurationFromEnvironmentProviderTest >> testSensitiveMandatoryConfigurationP
 		self assert: ( parameter resolveValueUsing: provider ifUnable: [ self fail ] ) equals: 'localhost' ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testSensitiveOptionalConfigurationParameterValue [
 
 	| provider parameter |
@@ -114,7 +115,7 @@ ConfigurationFromEnvironmentProviderTest >> testSensitiveOptionalConfigurationPa
 		]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromEnvironmentProviderTest >> testValueResolutionDelegatesToNextInChainWhenMissing [
 
 	| provider parameter |

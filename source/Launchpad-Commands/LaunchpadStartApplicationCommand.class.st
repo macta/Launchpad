@@ -1,23 +1,24 @@
 Class {
-	#name : #LaunchpadStartApplicationCommand,
-	#superclass : #LaunchpadApplicationCommand,
+	#name : 'LaunchpadStartApplicationCommand',
+	#superclass : 'LaunchpadApplicationCommand',
 	#instVars : [
 		'options',
 		'baseConfigurationProvider',
 		'applicationMode',
 		'commandServer'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #configuring }
+{ #category : 'configuring' }
 LaunchpadStartApplicationCommand >> addConfigurationProviderFromFile: aFileReference [
 
 	baseConfigurationProvider := ConfigurationFromSettingsFileProvider loading: aFileReference
 		                             chainedWith: baseConfigurationProvider
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStartApplicationCommand >> description [
 
 	^ 'Start the application selected via <app>.
@@ -25,7 +26,7 @@ Application configuration is made by the command-line via <parameters>, using en
 Execute launchpad explain <app> to get a list of valid configuration parameters.'
 ]
 
-{ #category : #configuring }
+{ #category : 'configuring' }
 LaunchpadStartApplicationCommand >> enableStructuredLogging [
 
 	[ 
@@ -39,44 +40,46 @@ LaunchpadStartApplicationCommand >> enableStructuredLogging [
 	] ensure: [ StandardStreamLogger onStandardError stop ]
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadStartApplicationCommand >> evaluateWithin: context [
 
-	self handleOptionsAndWithNextArgumentIn: context do: [ :argument | 
-		LaunchpadApplication applicationFor: argument
-			ifFound: [ :application | self start: application within: context ]
-			ifNone: [ context emitErrorAndExit: ( self unknownOptionOrApplicationMessageFor: argument ) ]
-		]
+	^ self handleOptionsAndWithNextArgumentIn: context do: [ :argument |
+		  LaunchpadApplication
+			  applicationFor: argument
+			  ifFound: [ :application | self start: application within: context ]
+			  ifNone: [ context emitErrorAndExit: ( self unknownOptionOrApplicationMessageFor: argument ) ]
+		  ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadStartApplicationCommand >> initialize [
 
 	super initialize.
-	options := OrderedCollection
-		           with: (LaunchpadHelpOption for: self)
-		           with: (LaunchpadDebugModeOption for: self)
-		           with: (LaunchpadSettingsFileOption for: self)
-		           with: (LaunchpadStructuredLoggingOption for: self).
-	options addAll: (LaunchpadOption additionalStartingOptionsFor: self).
+	options := OrderedCollection new.
+	options add: ( LaunchpadHelpOption for: self ).
+	options add: ( LaunchpadDebugModeOption for: self ).
+	options add: ( LaunchpadSettingsFileOption for: self ).
+	options add: ( LaunchpadStructuredLoggingOption for: self ).
+	options add: LaunchpadDryRunOption new.
+	options addAll: ( LaunchpadOption additionalStartingOptionsFor: self ).
 	baseConfigurationProvider := NullConfigurationProvider new.
 	applicationMode := ReleasedApplicationMode new.
 	commandServer := NullCommandServer new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStartApplicationCommand >> name [
 
 	^ 'start'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStartApplicationCommand >> options [
 
 	^ options
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadStartApplicationCommand >> printCommandArgumentsOn: stream [
 
 	super printCommandArgumentsOn: stream.
@@ -85,13 +88,13 @@ LaunchpadStartApplicationCommand >> printCommandArgumentsOn: stream [
 		nextPutAll: '<app> [<parameters>]'
 ]
 
-{ #category : #configuring }
+{ #category : 'configuring' }
 LaunchpadStartApplicationCommand >> setDebugMode [
 
 	applicationMode := DebuggingApplicationMode new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadStartApplicationCommand >> start: anApplication within: context [
 
 	| configurationProvider applicationToStart |
@@ -104,16 +107,17 @@ LaunchpadStartApplicationCommand >> start: anApplication within: context [
 		                      configuredBy: configurationProvider
 		                      controlledBy: commandServer.
 	LaunchpadApplication setAsCurrentlyRunning: applicationToStart.
-	applicationToStart startWithin: context
+	applicationToStart startWithin: context.
+	^ applicationToStart
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStartApplicationCommand >> subcommands [
 
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStartApplicationCommand >> summary [
 
 	^ 'Start the selected application'

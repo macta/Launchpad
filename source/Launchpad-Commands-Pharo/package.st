@@ -1,1 +1,1 @@
-Package { #name : #'Launchpad-Commands-Pharo' }
+Package { #name : 'Launchpad-Commands-Pharo' }

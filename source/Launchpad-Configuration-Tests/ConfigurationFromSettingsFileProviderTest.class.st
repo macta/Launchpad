@@ -2,12 +2,13 @@
 A ConfigurationFromSettingsFileProviderTest is a test class for testing the behavior of ConfigurationFromSettingsFileProvider
 "
 Class {
-	#name : #ConfigurationFromSettingsFileProviderTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'ConfigurationFromSettingsFileProviderTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromSettingsFileProviderTest >> testCannotLoadInvalidFormat [
 
 	self should: [ ConfigurationFromSettingsFileProvider loading: 'invalid.dat' asFileReference ]

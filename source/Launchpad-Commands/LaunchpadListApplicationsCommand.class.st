@@ -1,19 +1,20 @@
 Class {
-	#name : #LaunchpadListApplicationsCommand,
-	#superclass : #LaunchpadApplicationCommand,
+	#name : 'LaunchpadListApplicationsCommand',
+	#superclass : 'LaunchpadApplicationCommand',
 	#instVars : [
 		'options'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadListApplicationsCommand >> description [
 
 	^ 'Lists the available applications contained in the image.'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadListApplicationsCommand >> evaluateInVerboseModeWithin: context [
 
 	context outputStreamDo: [ :stream | 
@@ -32,7 +33,7 @@ LaunchpadListApplicationsCommand >> evaluateInVerboseModeWithin: context [
 	context exitSuccess
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadListApplicationsCommand >> evaluateWithin: context [
 
 	self handleOptionsAndWithNextArgumentIn: context do: [ :argument | 
@@ -40,14 +41,14 @@ LaunchpadListApplicationsCommand >> evaluateWithin: context [
 			( '<1s> unknown option: <2s>' expandMacrosWith: self name with: argument ) ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadListApplicationsCommand >> initialize [
 
 	super initialize.
 	options := Array with: ( LaunchpadVerboseOption for: self ) with: ( LaunchpadHelpOption for: self )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadListApplicationsCommand >> listAvailableApplicationsWithin: context [
 
 	context outputStreamDo: [ :stream | 
@@ -59,31 +60,31 @@ LaunchpadListApplicationsCommand >> listAvailableApplicationsWithin: context [
 	^ context exitSuccess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadListApplicationsCommand >> name [
 
 	^ 'list'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadListApplicationsCommand >> nextCommandLineArgumentIn: context [
 
 	^ context nextCommandLineArgumentIfNone: [ self listAvailableApplicationsWithin: context ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadListApplicationsCommand >> options [
 
 	^ options
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadListApplicationsCommand >> subcommands [
 
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadListApplicationsCommand >> summary [
 
 	^ 'List available applications'

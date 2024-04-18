@@ -1,1 +1,1 @@
-Package { #name : #'Launchpad-Configuration-Tests' }
+Package { #name : 'Launchpad-Configuration-Tests' }

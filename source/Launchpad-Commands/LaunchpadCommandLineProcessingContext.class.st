@@ -1,79 +1,18 @@
 Class {
-	#name : #LaunchpadCommandLineProcessingContext,
-	#superclass : #Object,
-	#instVars : [
-		'commandLine',
-		'output'
-	],
-	#category : #'Launchpad-Commands'
+	#name : 'LaunchpadCommandLineProcessingContext',
+	#superclass : 'LaunchpadProcessingContext',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
-LaunchpadCommandLineProcessingContext class >> handling: aCommandLine writingTo: outputStream [
+{ #category : 'converting' }
+LaunchpadCommandLineProcessingContext >> asDryRunContext [
 
-	^ self new initializeHandling: aCommandLine writingTo: outputStream
+	^ LaunchpadDryRunProcessingContext handling: commandLine writingTo: output
 ]
 
-{ #category : #accessing }
-LaunchpadCommandLineProcessingContext >> commandLine [
-	^ commandLine
-]
+{ #category : 'running' }
+LaunchpadCommandLineProcessingContext >> run: startUpBlock [
 
-{ #category : #accessing }
-LaunchpadCommandLineProcessingContext >> configurationProviderChainedWith: aConfigurationProvider [
-
-	^ ConfigurationFromCommandLineProvider over: commandLine chainedWith: aConfigurationProvider
-]
-
-{ #category : #utilities }
-LaunchpadCommandLineProcessingContext >> emitErrorAndExit: message [
-
-	LogRecord emitError: message.
-	self exitFailure
-]
-
-{ #category : #utilities }
-LaunchpadCommandLineProcessingContext >> exitFailure [
-
-	Exit signalFailure
-]
-
-{ #category : #utilities }
-LaunchpadCommandLineProcessingContext >> exitSuccess [
-
-	Exit signalSuccess
-]
-
-{ #category : #initialize }
-LaunchpadCommandLineProcessingContext >> initializeHandling: aCommandLine writingTo: outputStream [
-
-	commandLine := aCommandLine.
-	output := ZnNewLineWriterStream on: outputStream
-]
-
-{ #category : #accessing }
-LaunchpadCommandLineProcessingContext >> nextCommandLineArgumentIfNone: aFailBlock [
-
-	commandLine withFirstArgument: [ :argument | 
-		commandLine := commandLine copySubcommand.
-		^ argument
-		].
-	^ aFailBlock value
-]
-
-{ #category : #enumerating }
-LaunchpadCommandLineProcessingContext >> outputStreamDo: aBlock [
-
-	aBlock value: output
-]
-
-{ #category : #utilities }
-LaunchpadCommandLineProcessingContext >> run: aBlock withArguments: aCollection [
-	^aBlock valueWithEnoughArguments: aCollection 
-]
-
-{ #category : #configuration }
-LaunchpadCommandLineProcessingContext >> usePlatformLineEnding [
-
-	output forPlatformLineEnding
+	startUpBlock value
 ]

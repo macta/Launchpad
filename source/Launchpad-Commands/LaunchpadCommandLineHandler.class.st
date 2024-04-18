@@ -1,10 +1,11 @@
 Class {
-	#name : #LaunchpadCommandLineHandler,
-	#superclass : #CommandLineHandler,
-	#category : #'Launchpad-Commands'
+	#name : 'LaunchpadCommandLineHandler',
+	#superclass : 'CommandLineHandler',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadCommandLineHandler class >> activateInContext: aProcessingContext [
 
 	^ self new
@@ -12,20 +13,20 @@ LaunchpadCommandLineHandler class >> activateInContext: aProcessingContext [
 		activateWithContext: aProcessingContext
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadCommandLineHandler class >> activateWith: aCommandLine [
 
 	^ self activateInContext: (self defaultContextForCommandLine:
 			   (self prepareSubcommand: aCommandLine))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommandLineHandler class >> commandName [
 
 	^ LaunchpadRootCommand commandName
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadCommandLineHandler class >> defaultContextForCommandLine: commandLine [
 
 	^ (LaunchpadCommandLineProcessingContext
@@ -35,20 +36,20 @@ LaunchpadCommandLineHandler class >> defaultContextForCommandLine: commandLine [
 		  yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommandLineHandler class >> description [
 
 	^ LaunchpadRootCommand summary
 ]
 
-{ #category : #activation }
+{ #category : 'activation' }
 LaunchpadCommandLineHandler >> activate [
 	"shouldn't really be called anymore, divert to #activateWithContext:"
 	
 	self activateWithContext: (self class defaultContextForCommandLine: self commandLine)
 ]
 
-{ #category : #activation }
+{ #category : 'activation' }
 LaunchpadCommandLineHandler >> activateWithContext: context [
 
 	Processor activeProcess name: 'Launchpad CLI'.
@@ -58,5 +59,5 @@ LaunchpadCommandLineHandler >> activateWithContext: context [
 	StandardStreamLogger onStandardError startFor:
 		( LogRecord where: [ :record | record isInformational not ] ).
 
-	LaunchpadRootCommand new evaluateWithin: context
+	^ LaunchpadRootCommand new evaluateWithin: context
 ]

@@ -1,45 +1,46 @@
 Class {
-	#name : #LaunchpadHelpOption,
-	#superclass : #LaunchpadShortOption,
+	#name : 'LaunchpadHelpOption',
+	#superclass : 'LaunchpadShortOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadHelpOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadHelpOption >> evaluateWithin: context handling: argument [
 
-	context outputStreamDo: [ :stream |
-		command printHelpOn: stream ].
-	context exitSuccess 
+	context outputStreamDo: [ :stream | command printHelpOn: stream ].
+	context exitSuccess.
+	^ context
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadHelpOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadHelpOption >> name [
 
 	^ 'help'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadHelpOption >> shortName [
 
 	^ 'h'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadHelpOption >> summary [
 
 	^ 'Print this help message and exit.'

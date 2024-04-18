@@ -1,44 +1,61 @@
 Class {
-	#name : #LaunchpadTest,
-	#superclass : #TestCase,
+	#name : 'LaunchpadTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'runningApplication',
 		'loggingAsserter'
 	],
-	#category : #'Launchpad-SUnit'
+	#category : 'Launchpad-SUnit',
+	#package : 'Launchpad-SUnit'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadTest class >> isAbstract [
 
 	^ self = LaunchpadTest
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadTest >> assertLogRecordsMatch: expectedLogEntries [
 
 	loggingAsserter assertLogRecordsMatch: expectedLogEntries 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadTest >> assertThereAreNoLogRecords [
 
 	self assertLogRecordsMatch: #(  )
 ]
 
-{ #category : #running }
+{ #category : 'private' }
+LaunchpadTest >> dryRun: aLaunchpadApplication withAll: arguments [
+
+	self runMemoryLoggerDuring: [
+		[
+		runningApplication := LaunchpadCommandLineHandler activateWithArguments: {
+				                      'start'.
+				                      '--debug-mode'.
+				                      '--dry-run'.
+				                      aLaunchpadApplication commandName } , arguments
+		]
+			on: Exit
+			do: [ :exit | exit resume ]
+		]
+]
+
+{ #category : 'running' }
 LaunchpadTest >> runCase [
 
 	self shouldnt: [ super runCase ] raise: Exit
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadTest >> runMemoryLoggerDuring: aBlock [
 
 	loggingAsserter runMemoryLoggerDuring: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadTest >> runMemoryLoggerDuring: aBlock assertingLogRecordsMatch: expectedLogEntries [
 
 	self
@@ -46,35 +63,26 @@ LaunchpadTest >> runMemoryLoggerDuring: aBlock assertingLogRecordsMatch: expecte
 		assertLogRecordsMatch: expectedLogEntries
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LaunchpadTest >> setUp [
 
 	super setUp.
 	loggingAsserter := LoggingAsserter on: self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadTest >> start: aLaunchpadApplication withAll: arguments [
 
-	self runMemoryLoggerDuring: [ 
-		String streamContents: [ :output | 
-			| rootCommand commandLine context |
-
-			rootCommand := LaunchpadRootCommand new.
-			commandLine := CommandLineArguments withArguments: { 
-					               'launchpad'.
-					               'start'.
-					               '--debug-mode'.
-					               aLaunchpadApplication commandName } , arguments.
-			context := LaunchpadCommandLineProcessingContext handling: commandLine writingTo: output.
-			self assert: ( rootCommand canHandle: ( context nextCommandLineArgumentIfNone: [ self fail ] ) ).
-			rootCommand evaluateWithin: context.
-			runningApplication := LaunchpadApplication currentlyRunning
-			]
+	self runMemoryLoggerDuring: [
+		runningApplication := LaunchpadCommandLineHandler activateWithArguments: {
+				                      'launchpad'.
+				                      'start'.
+				                      '--debug-mode'.
+				                      aLaunchpadApplication commandName } , arguments
 		]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LaunchpadTest >> tearDown [
 
 	loggingAsserter stopLoggers.

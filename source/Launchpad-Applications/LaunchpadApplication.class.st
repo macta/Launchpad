@@ -188,16 +188,14 @@ LaunchpadApplication >> stackTraceDumper [
 LaunchpadApplication >> startWithin: context [
 
 	mode
-		value: [ 
+		value: [
 			commandServer start.
 			LogRecord emitInfo: self class summary.
-			self
-				logConfigurationWithin: context;
-				basicStartWithin: context
+			self logConfigurationWithin: context.
+			context run: [ self basicStartWithin: context ]
 			]
-		onErrorDo: [ :error | 
-			LogRecord emitError:
-				( 'Unexpected startup error: "<1s>"' expandMacrosWith: error messageText ).
+		onErrorDo: [ :error |
+			LogRecord emitError: ( 'Unexpected startup error: "<1s>"' expandMacrosWith: error messageText ).
 			self stackTraceDumper dumpStackTraceFor: error.
 			self exitFailure
 			]

@@ -1,16 +1,17 @@
 Class {
-	#name : #CommandServer,
-	#superclass : #Object,
-	#category : #'Launchpad-Commands'
+	#name : 'CommandServer',
+	#superclass : 'Object',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 CommandServer >> start [
 
 	self subclassResponsibility
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 CommandServer >> stop [
 
 	self subclassResponsibility

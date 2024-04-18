@@ -1,6 +1,6 @@
 Class {
-	#name : #LaunchpadRootCommand,
-	#superclass : #LaunchpadCommand,
+	#name : 'LaunchpadRootCommand',
+	#superclass : 'LaunchpadCommand',
 	#instVars : [
 		'options',
 		'subcommands'
@@ -8,69 +8,71 @@ Class {
 	#classVars : [
 		'Version'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand class >> commandName [
 
 	^ 'launchpad'
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 LaunchpadRootCommand class >> initialize [
 
 	<ignoreForCoverage>
 	self version: ( VersionFromRepositoryResolver new valueFor: 'Launchpad' )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand class >> summary [
 
 	^ 'A minimal application launcher'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand class >> version [
 
 	^ Version ifNil: [ '' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand class >> version: aVersion [
 
 	Version := aVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> description [
 
 	^ 'A command-line interface to start, list, and explain the applications available within the image.'
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadRootCommand >> evaluateWithin: context [
 
-	self handleOptionsAndWithNextArgumentIn: context do: [ :argument | 
-		subcommands detect: [ :subcommand | subcommand canHandle: argument ]
-			ifFound: [ :subcommand | subcommand evaluateWithin: context ]
-			ifNone: [ context emitErrorAndExit: ( self unkownCommandMessageFor: argument ) ]
-		]
+	^ self handleOptionsAndWithNextArgumentIn: context do: [ :argument |
+		  subcommands
+			  detect: [ :subcommand | subcommand canHandle: argument ]
+			  ifFound: [ :subcommand | subcommand evaluateWithin: context ]
+			  ifNone: [ context emitErrorAndExit: ( self unkownCommandMessageFor: argument ) ]
+		  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> fullCommandName [
 
 	^ self name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> fullName [
 
 	^ self name
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadRootCommand >> initialize [
 
 	super initialize.
@@ -80,37 +82,37 @@ LaunchpadRootCommand >> initialize [
 		               with: LaunchpadExplainApplicationCommand new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> name [
 
 	^ self class commandName
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommand >> nextCommandLineArgumentIn: context [
 
 	^ context nextCommandLineArgumentIfNone: [ context emitErrorAndExit: 'Missing command or option.' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> options [
 	
 	^options
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> subcommands [
 
 	^ subcommands
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> summary [
 
 	^ self class summary
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommand >> unkownCommandMessageFor: argument [
 
 	^ '<1s> unknown <2?option:command>: <3s>' expandMacrosWith: self name
@@ -118,7 +120,7 @@ LaunchpadRootCommand >> unkownCommandMessageFor: argument [
 		  with: argument
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadRootCommand >> version [
 
 	^ self class version

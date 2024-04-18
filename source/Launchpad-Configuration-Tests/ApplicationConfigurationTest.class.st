@@ -2,12 +2,13 @@
 An ApplicationConfigurationTest is a test class for testing the behavior of ApplicationConfiguration
 "
 Class {
-	#name : #ApplicationConfigurationTest,
-	#superclass : #LaunchpadTest,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'ApplicationConfigurationTest',
+	#superclass : 'LaunchpadTest',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ApplicationConfigurationTest >> assert: string isLineEndingInsensitiveEqualsTo: anotherString [
 
 	self
@@ -15,13 +16,13 @@ ApplicationConfigurationTest >> assert: string isLineEndingInsensitiveEqualsTo: 
 		equals: (anotherString withLineEndings: String lf)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ApplicationConfigurationTest >> commandLineProviderOver: arguments [
 
 	^ ConfigurationFromCommandLineProvider over: ( CommandLineArguments withArguments: arguments )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ApplicationConfigurationTest >> createFileNamed: fileName containing: fileContents during: aBlock [
 
 	| fileReference |
@@ -34,7 +35,7 @@ ApplicationConfigurationTest >> createFileNamed: fileName containing: fileConten
 	] ensure: [ fileReference ensureDelete ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 ApplicationConfigurationTest >> newApplicationConfiguration [
 
 	| provider parameters |
@@ -61,7 +62,7 @@ ApplicationConfigurationTest >> newApplicationConfiguration [
 	^ ApplicationConfiguration forAll: parameters providedBy: provider
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testAccessing [
 
 	| configuration parameters provider |
@@ -90,7 +91,7 @@ ApplicationConfigurationTest >> testAccessing [
 		assert: configuration communications http scheme equals: 'https'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testAsCommandLine [
 
 	| configuration commandLine |
@@ -102,7 +103,7 @@ ApplicationConfigurationTest >> testAsCommandLine [
 		' --communications.http.port=8086 --communications.http.scheme=https --public-url=https://api.example.com/ --service-discovery.consul-agent-location=localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testAsEnvironment [
 
 	| configuration env |
@@ -120,7 +121,7 @@ SERVICE_DISCOVERY__CONSUL_AGENT_LOCATION=localhost
 '
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testAsIniFile [
 
 	| configuration ini |
@@ -142,7 +143,7 @@ consulAgentLocation = localhost
 '
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testAsJson [
 
 	| configuration json |
@@ -156,7 +157,7 @@ ApplicationConfigurationTest >> testAsJson [
 		assert: ( json atPath: #( #serviceDiscovery #consulAgentLocation ) ) equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testCantCreateConfigurationWhenParameterConflictsWithSection [
 
 	| parameters provider |
@@ -174,7 +175,7 @@ ApplicationConfigurationTest >> testCantCreateConfigurationWhenParameterConflict
 		withMessageText: 'Section conflicting with parameter: "Port"'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testCantCreateConfigurationWithOverlappingParameters [
 
 	| parameters provider |
@@ -191,7 +192,7 @@ ApplicationConfigurationTest >> testCantCreateConfigurationWithOverlappingParame
 		withMessageText: 'Conflicting parameter: "Port"'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testDoNotWarnOnOptionalParametersWhenUsingDefault [
 
 	| configuration parameter provider logger |
@@ -208,7 +209,7 @@ ApplicationConfigurationTest >> testDoNotWarnOnOptionalParametersWhenUsingDefaul
 	self assert: logger recordings isEmpty
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testLoadingIniBasedSettings [
 
 	| configuration iniFile provider |
@@ -226,7 +227,7 @@ ApplicationConfigurationTest >> testLoadingIniBasedSettings [
 		assert: configuration communications http scheme equals: 'https'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testLoadingJsonSettings [
 
 	| configuration jsonFile provider |
@@ -244,7 +245,7 @@ ApplicationConfigurationTest >> testLoadingJsonSettings [
 		assert: configuration communications http scheme equals: 'https'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testLogging [
 
 	| configuration parameters provider |
@@ -272,7 +273,7 @@ ApplicationConfigurationTest >> testLogging [
 			'[INFO] Scheme: https' )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testLoggingWhenUsingConverters [
 
 	| configuration parameters provider |
@@ -305,7 +306,7 @@ ApplicationConfigurationTest >> testLoggingWhenUsingConverters [
 			'[INFO] Target port: 9999' )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testMissingParameterValue [
 
 	| parameter |
@@ -320,7 +321,7 @@ ApplicationConfigurationTest >> testMissingParameterValue [
 		withMessageText: '"Port" parameter not present.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testReloadingConfiguration [
 
 	| fileName configuration |
@@ -354,7 +355,7 @@ ApplicationConfigurationTest >> testReloadingConfiguration [
 		assert: configuration serviceDiscovery consulAgentLocation equals: 'consul.example.com'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testReloadingEmptyConfiguration [
 
 	| fileName configuration |
@@ -387,7 +388,7 @@ ApplicationConfigurationTest >> testReloadingEmptyConfiguration [
 		assert: configuration serviceDiscovery consulAgentLocation equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testReloadingEnvironmentVariableSettings [
 
 	| configuration provider |
@@ -406,7 +407,7 @@ ApplicationConfigurationTest >> testReloadingEnvironmentVariableSettings [
 		raise: RequiredConfigurationNotFound
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testReloadingIniBasedSettings [
 
 	| configuration iniFile provider |
@@ -435,7 +436,7 @@ ApplicationConfigurationTest >> testReloadingIniBasedSettings [
 		assert: configuration communications http scheme equals: 'https'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testReloadingJsonSettings [
 
 	| configuration json provider |
@@ -464,7 +465,7 @@ ApplicationConfigurationTest >> testReloadingJsonSettings [
 		assert: configuration communications http scheme equals: 'https'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testValueForGlobalParameter [
 
 	| configuration parameter provider |
@@ -480,7 +481,7 @@ ApplicationConfigurationTest >> testValueForGlobalParameter [
 	self assert: ( configuration valueFor: parameter ) equals: 8086
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testValueForParameterInSection [
 
 	| configuration parameter provider |
@@ -497,7 +498,7 @@ ApplicationConfigurationTest >> testValueForParameterInSection [
 	self assert: ( configuration valueFor: parameter ) equals: 8086
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ApplicationConfigurationTest >> testWarningOnOptionalParametersWhenUsingTheDefault [
 
 	| parameter |

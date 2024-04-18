@@ -1,31 +1,32 @@
 Class {
-	#name : #LaunchpadBrokenApplication,
-	#superclass : #LaunchpadApplication,
+	#name : 'LaunchpadBrokenApplication',
+	#superclass : 'LaunchpadApplication',
 	#instVars : [
 		'stackTraceDumper'
 	],
-	#category : #'Launchpad-Examples'
+	#category : 'Launchpad-Examples',
+	#package : 'Launchpad-Examples'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadBrokenApplication class >> commandName [
 
 	^ 'broken'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LaunchpadBrokenApplication class >> configurationParameters [
 
 	^ #(  )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadBrokenApplication class >> description [
 
 	^ 'A broken application'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadBrokenApplication class >> printCommandArgumentsOn: stream [
 
 	super printCommandArgumentsOn: stream.
@@ -36,7 +37,7 @@ LaunchpadBrokenApplication class >> printCommandArgumentsOn: stream [
 		nextPutAll: ']'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadBrokenApplication class >> printHelpOn: stream [
 
 	super printHelpOn: stream.
@@ -51,19 +52,19 @@ LaunchpadBrokenApplication class >> printHelpOn: stream [
 		cr
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadBrokenApplication class >> raiseErrorOption [
 
 	^ '--raise-error'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadBrokenApplication class >> version [
 
 	^ 'v0.0.1'
 ]
 
-{ #category : #'private - activation' }
+{ #category : 'private - activation' }
 LaunchpadBrokenApplication >> basicStartWithin: context [
 
 	| nextArgument |
@@ -72,7 +73,7 @@ LaunchpadBrokenApplication >> basicStartWithin: context [
 	nextArgument = self class raiseErrorOption ifTrue: [ Error signal: 'Doh!' ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadBrokenApplication >> initializeRunningIn: anApplicationMode configuredBy: aConfigurationProvider controlledBy: aCommandServer [
 
 	super
@@ -82,7 +83,7 @@ LaunchpadBrokenApplication >> initializeRunningIn: anApplicationMode configuredB
 	stackTraceDumper := self newStackTraceDumperOnStandardError
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 LaunchpadBrokenApplication >> stackTraceDumper [
 
 	^ stackTraceDumper

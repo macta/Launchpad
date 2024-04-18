@@ -1,37 +1,39 @@
 Class {
-	#name : #LaunchpadDebugModeOption,
-	#superclass : #LaunchpadOption,
+	#name : 'LaunchpadDebugModeOption',
+	#superclass : 'LaunchpadOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadDebugModeOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadDebugModeOption >> evaluateWithin: context handling: argument [
 
-	command setDebugMode
+	command setDebugMode.
+	^ context
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadDebugModeOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadDebugModeOption >> name [
 
 	^ 'debug-mode'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadDebugModeOption >> summary [
 
 	^ 'Enable the debugging mode. The image will not quit on unexpected errors. This configuration can be used in the application to improve the debugging experience.'

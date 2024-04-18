@@ -1,47 +1,48 @@
 Class {
-	#name : #LaunchpadCommand,
-	#superclass : #Object,
-	#category : #'Launchpad-Commands'
+	#name : 'LaunchpadCommand',
+	#superclass : 'Object',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadCommand class >> isAbstract [
 
 	<ignoreForCoverage>
 	^ self = LaunchpadCommand
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadCommand >> canHandle: argument [
 
 	^ argument = self name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> description [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadCommand >> evaluateWithin: context [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> fullCommandName [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> fullName [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadCommand >> handleOptionsAndWithNextArgumentIn: context do: aFailBlock [
 
 	| nextArgument |
@@ -50,32 +51,30 @@ LaunchpadCommand >> handleOptionsAndWithNextArgumentIn: context do: aFailBlock [
 
 	^ self options
 		  detect: [ :option | option canHandle: nextArgument ]
-		  ifFound: [ :option | 
-			  option evaluateWithin: context handling: nextArgument.
-			  self evaluateWithin: context
-			  ]
+		  ifFound: [ :option |
+		  self evaluateWithin: ( option evaluateWithin: context handling: nextArgument ) ]
 		  ifNone: [ aFailBlock cull: nextArgument ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> name [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadCommand >> nextCommandLineArgumentIn: context [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> options [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadCommand >> printCommandArgumentsOn: stream [
 
 	self options do: [ :option | 
@@ -89,7 +88,7 @@ LaunchpadCommand >> printCommandArgumentsOn: stream [
 		]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadCommand >> printHelpOn: stream [
 
 	( LaunchpadHelpPrinter on: stream )
@@ -100,13 +99,13 @@ LaunchpadCommand >> printHelpOn: stream [
 		commandsSectionDescribing: self subcommands
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> subcommands [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadCommand >> summary [
 
 	^ self subclassResponsibility
