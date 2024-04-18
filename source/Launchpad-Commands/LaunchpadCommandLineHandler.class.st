@@ -58,5 +58,7 @@ LaunchpadCommandLineHandler >> activateWithContext: context [
 	StandardStreamLogger onStandardError startFor:
 		( LogRecord where: [ :record | record isInformational not ] ).
 
+	LogRecord emitInfo: 'Launchpad processing command line parameters'.
+	
 	LaunchpadRootCommand new evaluateWithin: context
 ]
