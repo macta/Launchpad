@@ -48,6 +48,16 @@ function assertOutputIncludesMessage() {
   fi
 }
 
+function assertOutputIsEmpty() {
+	local output=$1
+
+	if [ -s "$output" ];then
+		print_error "Expected std$output to be empty when invoked with $LAST_ARGUMENTS"
+		cat "$output"
+		exit 1
+	fi
+}
+
 set -e
 
 if [ $# -eq 0 ]; then
@@ -144,6 +154,14 @@ assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must
 print_success " Missing name, OK"
 run_launchpad_gem launchpad start greeter
 assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must provide one." err
+print_success " Missing name and title, OK"
+
+run_launchpad_gem launchpad start --dry-run greeter --name=Juan --title=Mr
+assertOutputIsEmpty err
+print_success " Dry run with valid parameters, OK"
+run_launchpad_gem launchpad start --dry-run greeter
+assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must provide one." err
+print_success " Dry run with missing parameters, OK"
 print_success "OK"
 
 print_info "Running launchpad start broken test"
@@ -151,6 +169,10 @@ run_launchpad_gem launchpad start broken --raise-error
 assertOutputIncludesMessage "\[INFO\] Obtaining configuration... \[DONE\]" out
 assertOutputIncludesMessage "\[ERROR\] Unexpected startup error: \"Doh!\"" err
 print_success "OK"
+run_launchpad_gem launchpad start --dry-run broken --raise-error
+assertOutputIsEmpty err
+assertOutputIncludesMessage "\[INFO\] Obtaining configuration... \[DONE\]" out
+print_success "Dry run, OK"
 
 print_info "Stopping stone"
 docker stop gs64-stone

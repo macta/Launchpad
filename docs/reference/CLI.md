@@ -197,6 +197,7 @@ The `start` sub-command will start the selected application.
 launchpad start [--help|-h] [--debug-mode] [--settings-file=<filename>]
                 [--enable-tcp-command-server=<listeningPort>]
                 [--enable-structured-logging]
+                [--dry-run]
                 <app> [<parameters>]
 ```
 
@@ -247,7 +248,7 @@ $ launchpad start greeter
                 launchpad-start - Start the selected application
   SYNOPSYS
                 launchpad start [--help|-h] [--debug-mode]
-                  [--settings-file=<filename>] <app> [<parameters>]
+                  [--settings-file=<filename>] [--dry-run] <app> [<parameters>]
   DESCRIPTION
                 Start the application selected via <app>.
 
@@ -268,6 +269,10 @@ $ launchpad start greeter
                         This option can occur several times to configure more
                         than one settings file. Supported file settings formats
                         are INI and JSON.
+                --dry-run
+                        Perform a dry run of the application.
+                        All the configuration will be loaded (and validated),
+                        but the application will not perform any changes.
   ```
 
 - `debug-mode` Enable the debugging mode.
@@ -290,3 +295,5 @@ $ launchpad start greeter
   can be used to send commands controlling the application using a TCP port.
 - `--enable-structured-logging` Enable structured logging. When enabled the log
   will be emitted in JSON format.
+- `--dry-run` Perform a dry run of the application. All the configuration will
+  be loaded (and validated), but the application will not perform any changes.

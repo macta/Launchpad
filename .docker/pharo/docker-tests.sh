@@ -48,6 +48,16 @@ function assertOutputIncludesMessage() {
 	fi
 }
 
+function assertOutputIsEmpty() {
+	local output=$1
+
+	if [ -s "$output" ];then
+		print_error "Expected std$output to be empty when invoked with $LAST_ARGUMENTS"
+		cat "$output"
+		exit 1
+	fi
+}
+
 set -e
 
 print_info "Building base image"
@@ -108,6 +118,13 @@ assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must
 print_success " Missing name, OK"
 executeWithArguments docker run launchpad-examples:sut launchpad-start greeter
 assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must provide one." err
+print_success " Missing name and title, OK"
+executeWithArguments docker run launchpad-examples:sut launchpad-start --dry-run greeter --name=Juan --title=Mr
+assertOutputIsEmpty err
+print_success " Dry run with valid parameters, OK"
+executeWithArguments docker run launchpad-examples:sut launchpad-start --dry-run greeter
+assertOutputIncludesMessage "\[ERROR\] \"Name\" parameter not provided. You must provide one." err
+print_success " Dry run with missing parameters, OK"
 print_success "OK"
 
 print_info "Running launchpad-start broken test"
@@ -115,6 +132,10 @@ executeWithArguments docker run launchpad-examples:sut launchpad-start broken --
 assertOutputIncludesMessage "\[INFO\] Obtaining configuration... \[DONE\]" out
 assertOutputIncludesMessage "\[ERROR\] Unexpected startup error: \"Doh!\"" err
 print_success "OK"
+executeWithArguments docker run launchpad-examples:sut launchpad-start --dry-run broken --raise-error
+assertOutputIsEmpty err
+assertOutputIncludesMessage "\[INFO\] Obtaining configuration... \[DONE\]" out
+print_success "Dry run, OK"
 
 print_info "Running launchpad-start command server test"
 # broken app keeps running when passed and invalid option
