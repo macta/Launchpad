@@ -201,10 +201,8 @@ ApplicationConfiguration >> synchronizeValuesWith: resolvedValues [
 
 { #category : 'accessing' }
 ApplicationConfiguration >> valueAt: aKey [
-	"For configuration access without DNU handling, provide standard Dictionary api. 
-	With normal configuration parameters, there should never be an absent value, so use default Dictionary error handling for an absent key"
-	
-	^values at: aKey
+
+	^ self valueAt: aKey ifAbsent: [ KeyNotFound signalFor: aKey ]
 ]
 
 { #category : 'accessing' }

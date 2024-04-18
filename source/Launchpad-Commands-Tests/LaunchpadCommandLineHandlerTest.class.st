@@ -15,13 +15,18 @@ LaunchpadCommandLineHandlerTest >> testApplicationConfiguration [
 
 	self
 		assert: runningApplication configuration name equals: 'John';
-		assert: runningApplication configuration title isEmpty.
+		assert: runningApplication configuration title isEmpty;
+		assert: ( runningApplication configuration valueAt: #name ) equals: 'John';
+		assert: ( runningApplication configuration valueAt: #title ) isEmpty.
 
 	self dryRun: LaunchpadGreeterApplication withAll: #( '--name=John' '--title=Dr.' ).
 
 	self
 		assert: runningApplication configuration name equals: 'John';
-		assert: runningApplication configuration title equals: 'Dr.'
+		assert: runningApplication configuration title equals: 'Dr.';
+		assert: ( runningApplication configuration valueAt: #name ) equals: 'John';
+		assert: ( runningApplication configuration valueAt: #title ) equals: 'Dr.';
+		should: [ runningApplication configuration valueAt: #unknown ] raise: Error
 ]
 
 { #category : 'tests' }

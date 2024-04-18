@@ -44,9 +44,9 @@ LaunchpadCommandLineHandler class >> description [
 
 { #category : 'activation' }
 LaunchpadCommandLineHandler >> activate [
-	"shouldn't really be called anymore, divert to #activateWithContext:"
-	
-	self activateWithContext: (self class defaultContextForCommandLine: self commandLine)
+
+	<ignoreForCoverage>
+	self shouldNotImplement
 ]
 
 { #category : 'activation' }
