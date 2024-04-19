@@ -4,6 +4,7 @@ COPY --chown=pharo:users ./launchpad* ./
 USER root
 RUN set -eu; \
   apt-get update; \
+  apt-get upgrade; \
   apt-get install --assume-yes --no-install-recommends netcat-openbsd; \
   apt-get clean; \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
