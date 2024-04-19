@@ -272,7 +272,7 @@ $ launchpad start greeter
                 --dry-run
                         Perform a dry run of the application.
                         All the configuration will be loaded (and validated),
-                        but the application will not perform any changes.
+                        but the application will not start.
   ```
 
 - `debug-mode` Enable the debugging mode.
@@ -296,4 +296,4 @@ $ launchpad start greeter
 - `--enable-structured-logging` Enable structured logging. When enabled the log
   will be emitted in JSON format.
 - `--dry-run` Perform a dry run of the application. All the configuration will
-  be loaded (and validated), but the application will not perform any changes.
+  be loaded (and validated), but the application will not start.

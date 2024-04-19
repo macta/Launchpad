@@ -20,5 +20,5 @@ LaunchpadDryRunOption >> name [
 { #category : 'accessing' }
 LaunchpadDryRunOption >> summary [
 
-	^ 'Perform a dry run of the application. All the configuration will be loaded (and validated), but the application will not perform any changes.'
+	^ 'Perform a dry run of the application. All the configuration will be loaded (and validated), but the application will not start.'
 ]

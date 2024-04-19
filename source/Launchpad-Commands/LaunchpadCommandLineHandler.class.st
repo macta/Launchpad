@@ -29,7 +29,7 @@ LaunchpadCommandLineHandler class >> commandName [
 { #category : 'instance creation' }
 LaunchpadCommandLineHandler class >> defaultContextForCommandLine: commandLine [
 
-	^ (LaunchpadCommandLineProcessingContext
+	^ (LaunchpadApplicationStartingContext
 		   		handling: commandLine
 		   		writingTo: Stdio stdout)
 		  usePlatformLineEnding;

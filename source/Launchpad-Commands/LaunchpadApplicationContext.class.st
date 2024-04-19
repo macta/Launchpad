@@ -1,5 +1,5 @@
 Class {
-	#name : 'LaunchpadProcessingContext',
+	#name : 'LaunchpadApplicationContext',
 	#superclass : 'Object',
 	#instVars : [
 		'commandLine',
@@ -10,70 +10,70 @@ Class {
 }
 
 { #category : 'instance creation' }
-LaunchpadProcessingContext class >> handling: aCommandLine [
+LaunchpadApplicationContext class >> handling: aCommandLine [
 
 	^ self handling: aCommandLine writingTo: String new writeStream
 ]
 
 { #category : 'instance creation' }
-LaunchpadProcessingContext class >> handling: aCommandLine writingTo: outputStream [
+LaunchpadApplicationContext class >> handling: aCommandLine writingTo: outputStream [
 
 	^ self new initializeHandling: aCommandLine writingTo: outputStream
 ]
 
 { #category : 'testing' }
-LaunchpadProcessingContext class >> isAbstract [
+LaunchpadApplicationContext class >> isAbstract [
 
 	<ignoreForCoverage>
-	^ self = LaunchpadProcessingContext
+	^ self = LaunchpadApplicationContext
 ]
 
 { #category : 'converting' }
-LaunchpadProcessingContext >> asDryRunContext [
+LaunchpadApplicationContext >> asDryRunContext [
 
 	^ self subclassResponsibility
 ]
 
 { #category : 'accessing' }
-LaunchpadProcessingContext >> commandLine [
+LaunchpadApplicationContext >> commandLine [
 
 	^ commandLine
 ]
 
 { #category : 'accessing' }
-LaunchpadProcessingContext >> configurationProviderChainedWith: aConfigurationProvider [
+LaunchpadApplicationContext >> configurationProviderChainedWith: aConfigurationProvider [
 
 	^ ConfigurationFromCommandLineProvider over: commandLine chainedWith: aConfigurationProvider
 ]
 
 { #category : 'utilities' }
-LaunchpadProcessingContext >> emitErrorAndExit: message [
+LaunchpadApplicationContext >> emitErrorAndExit: message [
 
 	LogRecord emitError: message.
 	self exitFailure
 ]
 
 { #category : 'utilities' }
-LaunchpadProcessingContext >> exitFailure [
+LaunchpadApplicationContext >> exitFailure [
 
 	Exit signalFailure
 ]
 
 { #category : 'utilities' }
-LaunchpadProcessingContext >> exitSuccess [
+LaunchpadApplicationContext >> exitSuccess [
 
 	Exit signalSuccess
 ]
 
 { #category : 'initialize' }
-LaunchpadProcessingContext >> initializeHandling: aCommandLine writingTo: outputStream [
+LaunchpadApplicationContext >> initializeHandling: aCommandLine writingTo: outputStream [
 
 	commandLine := aCommandLine.
 	output := ZnNewLineWriterStream on: outputStream
 ]
 
 { #category : 'accessing' }
-LaunchpadProcessingContext >> nextCommandLineArgumentIfNone: aFailBlock [
+LaunchpadApplicationContext >> nextCommandLineArgumentIfNone: aFailBlock [
 
 	commandLine withFirstArgument: [ :argument | 
 		commandLine := commandLine copySubcommand.
@@ -83,19 +83,19 @@ LaunchpadProcessingContext >> nextCommandLineArgumentIfNone: aFailBlock [
 ]
 
 { #category : 'enumerating' }
-LaunchpadProcessingContext >> outputStreamDo: aBlock [
+LaunchpadApplicationContext >> outputStreamDo: aBlock [
 
 	aBlock value: output
 ]
 
 { #category : 'running' }
-LaunchpadProcessingContext >> run: startupBlock [
+LaunchpadApplicationContext >> run: startupBlock [
 
 	^ self subclassResponsibility
 ]
 
 { #category : 'configuration' }
-LaunchpadProcessingContext >> usePlatformLineEnding [
+LaunchpadApplicationContext >> usePlatformLineEnding [
 
 	output forPlatformLineEnding
 ]
