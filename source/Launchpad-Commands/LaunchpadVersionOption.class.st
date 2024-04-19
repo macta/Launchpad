@@ -1,19 +1,20 @@
 Class {
-	#name : #LaunchpadVersionOption,
-	#superclass : #LaunchpadOption,
+	#name : 'LaunchpadVersionOption',
+	#superclass : 'LaunchpadOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadVersionOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadVersionOption >> evaluateWithin: context handling: argument [
 
 	context outputStreamDo: [ :stream | 
@@ -26,19 +27,19 @@ LaunchpadVersionOption >> evaluateWithin: context handling: argument [
 	context exitSuccess
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadVersionOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadVersionOption >> name [
 
 	^ 'version'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadVersionOption >> summary [
 
 	^ 'Print the version and exit.'

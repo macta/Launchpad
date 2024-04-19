@@ -1,37 +1,39 @@
 Class {
-	#name : #LaunchpadStructuredLoggingOption,
-	#superclass : #LaunchpadOption,
+	#name : 'LaunchpadStructuredLoggingOption',
+	#superclass : 'LaunchpadOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadStructuredLoggingOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadStructuredLoggingOption >> evaluateWithin: context handling: argument [
 
-	command enableStructuredLogging
+	command enableStructuredLogging.
+	^ context
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadStructuredLoggingOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStructuredLoggingOption >> name [
 
 	^ 'enable-structured-logging'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadStructuredLoggingOption >> summary [
 
 	^ 'Enable structured logging. When enabled the log will be emitted in JSON format.'

@@ -1,16 +1,17 @@
 Class {
-	#name : #NullCommandServer,
-	#superclass : #CommandServer,
-	#category : #'Launchpad-Commands'
+	#name : 'NullCommandServer',
+	#superclass : 'CommandServer',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 NullCommandServer >> start [
 
 	
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 NullCommandServer >> stop [
 
 	

@@ -1,19 +1,20 @@
 Class {
-	#name : #LaunchpadExplainApplicationCommand,
-	#superclass : #LaunchpadApplicationCommand,
+	#name : 'LaunchpadExplainApplicationCommand',
+	#superclass : 'LaunchpadApplicationCommand',
 	#instVars : [
 		'options'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadExplainApplicationCommand >> description [
 
 	^ 'Give details about the application selected via <app> including its configuration options.'
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadExplainApplicationCommand >> evaluateWithin: context [
 
 	self handleOptionsAndWithNextArgumentIn: context do: [ :argument | 
@@ -23,33 +24,33 @@ LaunchpadExplainApplicationCommand >> evaluateWithin: context [
 		]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadExplainApplicationCommand >> explain: application within: context [
 
 	context outputStreamDo: [ :stream | application printHelpOn: stream ].
 	context exitSuccess
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadExplainApplicationCommand >> initialize [
 
 	super initialize.
 	options := Array with: ( LaunchpadHelpOption for: self )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadExplainApplicationCommand >> name [
 
 	^ 'explain'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadExplainApplicationCommand >> options [
 
 	^ options
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadExplainApplicationCommand >> printCommandArgumentsOn: stream [
 
 	super printCommandArgumentsOn: stream.
@@ -58,13 +59,13 @@ LaunchpadExplainApplicationCommand >> printCommandArgumentsOn: stream [
 		nextPutAll: '<app>'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadExplainApplicationCommand >> subcommands [
 
 	^ #()
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadExplainApplicationCommand >> summary [
 
 	^ 'Give details about the selected application'

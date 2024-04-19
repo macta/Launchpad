@@ -20,7 +20,7 @@ the logging infrastructure:
   `stdout` on Unix); because there's no way to access the `stderr` handle
   attached to the VM process.
 
-As a second step, it instantiates a `LaunchpadCommandLineProcessingContext` with
+As a second step, it instantiates a `LaunchpadApplicationStartingContext` with
 the command-line and a reference to `stdout`. This context is later available
 in all the required methods and ultimately accessible by the application in its
 `basicStartWithin:` method.

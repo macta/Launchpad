@@ -1,43 +1,44 @@
 Class {
-	#name : #LaunchpadVerboseOption,
-	#superclass : #LaunchpadShortOption,
+	#name : 'LaunchpadVerboseOption',
+	#superclass : 'LaunchpadShortOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands'
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadVerboseOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadVerboseOption >> evaluateWithin: context handling: argument [
 
 	command evaluateInVerboseModeWithin: context
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadVerboseOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadVerboseOption >> name [
 
 	^ 'verbose'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadVerboseOption >> shortName [
 
 	^ 'v'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadVerboseOption >> summary [
 
 	^ 'Produce more verbose output.'

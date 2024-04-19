@@ -2,12 +2,13 @@
 An OptionalConfigurationParameterTest is a test class for testing the behavior of OptionalConfigurationParameter
 "
 Class {
-	#name : #OptionalConfigurationParameterTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'OptionalConfigurationParameterTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 OptionalConfigurationParameterTest >> commandLineProviderSetting: aParameter to: aString [
 
 	^ ConfigurationFromCommandLineProvider over: ( CommandLineArguments withArguments:
@@ -15,7 +16,7 @@ OptionalConfigurationParameterTest >> commandLineProviderSetting: aParameter to:
 				      ( '--<1s>=<2s>' expandMacrosWith: aParameter commandLineArgumentName with: aString ) ) )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 OptionalConfigurationParameterTest >> numberConversionAction [
 
 	^ [ :value |
@@ -25,7 +26,7 @@ OptionalConfigurationParameterTest >> numberConversionAction [
 	  value asNumber ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testAccessing [
 
 	| parameter |
@@ -42,7 +43,7 @@ OptionalConfigurationParameterTest >> testAccessing [
 		assert: parameter attributeName equals: 'port'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testAccessingInInnerSection [
 
 	| parameter |
@@ -60,7 +61,7 @@ OptionalConfigurationParameterTest >> testAccessingInInnerSection [
 		assert: parameter attributeName equals: 'port'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testAccessingInSection [
 
 	| parameter |
@@ -78,7 +79,7 @@ OptionalConfigurationParameterTest >> testAccessingInSection [
 		assert: parameter attributeName equals: 'port'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testBooleanTransformation [
 
 	| parameter |
@@ -105,7 +106,7 @@ OptionalConfigurationParameterTest >> testBooleanTransformation [
 		withMessageText: 'unclear can''t be interpreted as a boolean'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testNumberTransformation [
 
 	| parameter |
@@ -131,7 +132,7 @@ OptionalConfigurationParameterTest >> testNumberTransformation [
 		withMessageText: 'Expected a number'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testPrintString [
 
 	| parameter |
@@ -152,7 +153,7 @@ OptionalConfigurationParameterTest >> testPrintString [
 	[Optional] The service''s listening port. Defaults to 8080.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 OptionalConfigurationParameterTest >> testUrlTransformation [
 
 	| parameter |
@@ -169,7 +170,7 @@ OptionalConfigurationParameterTest >> testUrlTransformation [
 	self assert: ( self valueWhenSetting: parameter to: '' ) equals: ( ZnUrl fromString: '/' )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 OptionalConfigurationParameterTest >> valueWhenSetting: aParameter to: aString [
 
 	| provider |

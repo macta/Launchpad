@@ -1,10 +1,11 @@
 Class {
-	#name : #LaunchpadOption,
-	#superclass : #Object,
-	#category : #'Launchpad-Commands'
+	#name : 'LaunchpadOption',
+	#superclass : 'Object',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #querying }
+{ #category : 'querying' }
 LaunchpadOption class >> additionalStartingOptionsFor: startApplicationCommand [
 
 	^ self allLeafSubclasses
@@ -13,38 +14,38 @@ LaunchpadOption class >> additionalStartingOptionsFor: startApplicationCommand [
 		  optionClass for: startApplicationCommand ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadOption class >> isAbstract [
 
 	<ignoreForCoverage>
 	^ self = LaunchpadOption
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadOption class >> isExtendedStartingOption [
 
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadOption >> canHandle: argument [
 
 	^ argument = ( '--' , self name )
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadOption >> evaluateWithin: context handling: argument [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadOption >> name [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadOption >> printAsCommandLineArgumentTemplateOn: stream [
 
 	stream
@@ -54,7 +55,7 @@ LaunchpadOption >> printAsCommandLineArgumentTemplateOn: stream [
 	stream nextPut: $]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadOption >> printHelpOn: stream [
 
 	stream
@@ -62,13 +63,13 @@ LaunchpadOption >> printHelpOn: stream [
 		nextPutAll: self name
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadOption >> printSuffixOn: stream [
 
 	
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadOption >> summary [
 
 	^ self subclassResponsibility

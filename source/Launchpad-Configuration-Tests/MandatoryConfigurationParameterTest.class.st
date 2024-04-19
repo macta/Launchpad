@@ -2,12 +2,13 @@
 A MandatoryConfigurationParameterTest is a test class for testing the behavior of MandatoryConfigurationParameter
 "
 Class {
-	#name : #MandatoryConfigurationParameterTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'MandatoryConfigurationParameterTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 MandatoryConfigurationParameterTest >> commandLineProviderSetting: aParameter to: aString [
 
 	^ ConfigurationFromCommandLineProvider over: ( CommandLineArguments withArguments:
@@ -15,7 +16,7 @@ MandatoryConfigurationParameterTest >> commandLineProviderSetting: aParameter to
 				      ( '--<1s>=<2s>' expandMacrosWith: aParameter commandLineArgumentName with: aString ) ) )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MandatoryConfigurationParameterTest >> numberConversionAction [
 
 	^ [ :value |
@@ -25,7 +26,7 @@ MandatoryConfigurationParameterTest >> numberConversionAction [
 	  value asNumber ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testAccessing [
 
 	| parameter |
@@ -41,7 +42,7 @@ MandatoryConfigurationParameterTest >> testAccessing [
 		assert: parameter attributeName equals: 'publicURL'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testAccessingInInnerSection [
 
 	| parameter |
@@ -58,7 +59,7 @@ MandatoryConfigurationParameterTest >> testAccessingInInnerSection [
 		assert: parameter attributeName equals: 'publicURL'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testAccessingInSection [
 
 	| parameter |
@@ -75,7 +76,7 @@ MandatoryConfigurationParameterTest >> testAccessingInSection [
 		assert: parameter attributeName equals: 'publicURL'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testBooleanTransformation [
 
 	| parameter |
@@ -101,7 +102,7 @@ MandatoryConfigurationParameterTest >> testBooleanTransformation [
 		withMessageText: 'unclear can''t be interpreted as a boolean'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testNumberTransformation [
 
 	| parameter |
@@ -126,7 +127,7 @@ MandatoryConfigurationParameterTest >> testNumberTransformation [
 		withMessageText: 'Expected a number'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testPrintString [
 
 	| parameter |
@@ -145,7 +146,7 @@ MandatoryConfigurationParameterTest >> testPrintString [
 	[Mandatory] The service''s public URL.'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MandatoryConfigurationParameterTest >> testUrlTransformation [
 
 	| parameter |
@@ -161,7 +162,7 @@ MandatoryConfigurationParameterTest >> testUrlTransformation [
 	self assert: ( self valueWhenSetting: parameter to: '' ) equals: ( ZnUrl fromString: '/' )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MandatoryConfigurationParameterTest >> valueWhenSetting: aParameter to: aString [
 
 	| provider |

@@ -2,18 +2,19 @@
 A ConfigurationFromCommandLineProviderTest is a test class for testing the behavior of ConfigurationFromCommandLineProvider
 "
 Class {
-	#name : #ConfigurationFromCommandLineProviderTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'ConfigurationFromCommandLineProviderTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 ConfigurationFromCommandLineProviderTest >> providerOver: arguments [
 
 	^ ConfigurationFromCommandLineProvider over: ( CommandLineArguments withArguments: arguments )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testMandatoryConfigurationParameterValue [
 
 	| provider mandatoryParameter |
@@ -27,7 +28,7 @@ ConfigurationFromCommandLineProviderTest >> testMandatoryConfigurationParameterV
 		equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testMandatoryConfigurationParameterValueMissing [
 
 	| provider mandatoryParameter |
@@ -41,7 +42,7 @@ ConfigurationFromCommandLineProviderTest >> testMandatoryConfigurationParameterV
 		equals: 'example.com'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testOptionalConfigurationParameterValue [
 
 	| provider parameter |
@@ -56,7 +57,7 @@ ConfigurationFromCommandLineProviderTest >> testOptionalConfigurationParameterVa
 		equals: 'https://example.com'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testOptionalConfigurationParameterValueUsingDefault [
 
 	| provider parameter |
@@ -71,7 +72,7 @@ ConfigurationFromCommandLineProviderTest >> testOptionalConfigurationParameterVa
 		equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testSensitiveMandatoryConfigurationParameterValue [
 
 	| provider mandatoryParameter |
@@ -85,7 +86,7 @@ ConfigurationFromCommandLineProviderTest >> testSensitiveMandatoryConfigurationP
 		equals: 'localhost'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 ConfigurationFromCommandLineProviderTest >> testSensitiveOptionalConfigurationParameterValue [
 
 	| provider parameter |

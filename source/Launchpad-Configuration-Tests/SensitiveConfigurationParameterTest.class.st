@@ -2,12 +2,13 @@
 A SensitiveConfigurationParameterTest is a test class for testing the behavior of SensitiveConfigurationParameter
 "
 Class {
-	#name : #SensitiveConfigurationParameterTest,
-	#superclass : #TestCase,
-	#category : #'Launchpad-Configuration-Tests'
+	#name : 'SensitiveConfigurationParameterTest',
+	#superclass : 'TestCase',
+	#category : 'Launchpad-Configuration-Tests',
+	#package : 'Launchpad-Configuration-Tests'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 SensitiveConfigurationParameterTest >> testAccessing [
 
 	| parameter |
@@ -23,7 +24,7 @@ SensitiveConfigurationParameterTest >> testAccessing [
 		assert: parameter attributeName equals: 'publicURL'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SensitiveConfigurationParameterTest >> testConverting [
 
 	| parameter |
@@ -34,7 +35,7 @@ SensitiveConfigurationParameterTest >> testConverting [
 	self assert: parameter asSensitive identicalTo: parameter
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SensitiveConfigurationParameterTest >> testPrintAsCommandLineArgumentTemplate [
 
 	| parameter |
@@ -47,7 +48,7 @@ SensitiveConfigurationParameterTest >> testPrintAsCommandLineArgumentTemplate [
 		equals: '--public-url=<publicURL>'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 SensitiveConfigurationParameterTest >> testPrintString [
 
 	| parameter |

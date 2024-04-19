@@ -2,15 +2,16 @@
 A LaunchpadMainCommandTest is a test class for testing the behavior of LaunchpadMainCommand
 "
 Class {
-	#name : #LaunchpadRootCommandTest,
-	#superclass : #LaunchpadTest,
+	#name : 'LaunchpadRootCommandTest',
+	#superclass : 'LaunchpadTest',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands-Tests'
+	#category : 'Launchpad-Commands-Tests',
+	#package : 'Launchpad-Commands-Tests'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> assert: string isLineEndingInsensitiveEqualsTo: anotherString [
 
 	self
@@ -18,20 +19,20 @@ LaunchpadRootCommandTest >> assert: string isLineEndingInsensitiveEqualsTo: anot
 		equals: (anotherString withLineEndings: String lf)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> assertCommandCanHandleNextArgumentIn: context [
 
 	self assert: ( command canHandle: ( context nextCommandLineArgumentIfNone: [ self fail ] ) )
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> contextWithArguments: arguments writingTo: outputStream [
 
-	^ LaunchpadCommandLineProcessingContext handling: ( CommandLineArguments withArguments: arguments )
+	^ LaunchpadApplicationStartingContext handling: ( CommandLineArguments withArguments: arguments )
 		  writingTo: outputStream
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> createFileNamed: fileName containing: fileContents during: aBlock [
 
 	| fileReference |
@@ -44,60 +45,60 @@ LaunchpadRootCommandTest >> createFileNamed: fileName containing: fileContents d
 	] ensure: [ fileReference ensureDelete ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> existsExtendedStartingOptions [
 
 	^ LaunchpadOption allLeafSubclasses anySatisfy: [ :optionClass |
 		  optionClass isExtendedStartingOption ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedExplainBrokenHelpOutput [
 
 	^ 'NAME<n>		broken [v0.0.1] - A broken application<n>SYNOPSYS<n>		broken [--raise-error]<n>COMMANDS<n>		--raise-error<n>			Raises an unexpected error. Useful to test stack trace generation.<n>'
 		  expandMacros
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedExplainGreeterHelpOutput [
 
 	^ 'NAME<n>		greeter [v1.0.0] - A greetings application<n>SYNOPSYS<n>		greeter --name=%<name> [--title=%<title>]<n>PARAMETERS<n>		--name=%<name><n>			The name of the user to greet.<n>		--title=%<title><n>			The title of the user to greet. Defaults to nothing.<n>ENVIRONMENT<n>		NAME<n>			The name of the user to greet.<n>		TITLE<n>			The title of the user to greet. Defaults to nothing.<n>'
 		  expandMacros
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedExplainHelpOutput [
 
 	^ 'NAME<n>		launchpad-explain - Give details about the selected application<n>SYNOPSYS<n>		launchpad explain [--help|-h] %<app><n>DESCRIPTION<n>		Give details about the application selected via %<app> including its configuration options.<n>OPTIONS<n>		-h, --help<n>			Print this help message and exit.<n>'
 		  expandMacros			
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedHelpOutput [
 
 	^ 'NAME<n>		launchpad - A minimal application launcher<n>SYNOPSYS<n>		launchpad [--version] [--help|-h] %<command><n>DESCRIPTION<n>		A command-line interface to start, list, and explain the applications available within the image.<n>OPTIONS<n>		--version<n>			Print the version and exit.<n>		-h, --help<n>			Print this help message and exit.<n>COMMANDS<n>		start<n>			Start the selected application<n>		list<n>			List available applications<n>		explain<n>			Give details about the selected application<n>'
 		  expandMacros
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedListHelpOutput [
 
 	^ 'NAME<n>		launchpad-list - List available applications<n>SYNOPSYS<n>		launchpad list [--verbose|-v] [--help|-h]<n>DESCRIPTION<n>		Lists the available applications contained in the image.<n>OPTIONS<n>		-v, --verbose<n>			Produce more verbose output.<n>		-h, --help<n>			Print this help message and exit.<n>'
 		  expandMacros
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedStartHelpOutput [
 
 	^ (self existsExtendedStartingOptions
 		   ifTrue: [
-			   'NAME<n>		launchpad-start - Start the selected application<n>SYNOPSYS<n>		launchpad start [--help|-h] [--debug-mode] [--settings-file=%<filename>] [--enable-structured-logging] [--enable-tcp-command-server=%<listeningPort>] %<app> [%<parameters>]<n>DESCRIPTION<n>		Start the application selected via %<app>.<n><n><t><t>Application configuration is made by the command-line via %<parameters>, using environment variables or settings files.<n><n><t><t>Execute launchpad explain %<app> to get a list of valid configuration parameters.<n>OPTIONS<n>		-h, --help<n>			Print this help message and exit.<n>		--debug-mode<n>			Enable the debugging mode. The image will not quit on unexpected errors. This configuration can be used in the application to improve the debugging experience.<n>		--settings-file=%<filename><n>			Provide application configuration via a settings file. This option can occur several times to configure more than one settings file. Supported file settings formats are INI and JSON.<n>		--enable-structured-logging<n>			Enable structured logging. When enabled the log will be emitted in JSON format.<n>		--enable-tcp-command-server=%<listeningPort><n>			Enable a TCP command server. This can be used to send commands controlling the application using a TCP port.<n>' ]
+			   'NAME<n>		launchpad-start - Start the selected application<n>SYNOPSYS<n>		launchpad start [--help|-h] [--debug-mode] [--settings-file=%<filename>] [--enable-structured-logging] [--dry-run] [--enable-tcp-command-server=%<listeningPort>] %<app> [%<parameters>]<n>DESCRIPTION<n>		Start the application selected via %<app>.<n><n><t><t>Application configuration is made by the command-line via %<parameters>, using environment variables or settings files.<n><n><t><t>Execute launchpad explain %<app> to get a list of valid configuration parameters.<n>OPTIONS<n>		-h, --help<n>			Print this help message and exit.<n>		--debug-mode<n>			Enable the debugging mode. The image will not quit on unexpected errors. This configuration can be used in the application to improve the debugging experience.<n>		--settings-file=%<filename><n>			Provide application configuration via a settings file. This option can occur several times to configure more than one settings file. Supported file settings formats are INI and JSON.<n>		--enable-structured-logging<n>			Enable structured logging. When enabled the log will be emitted in JSON format.<n><t><t>--dry-run<n><t><t><t>Perform a dry run of the application. All the configuration will be loaded (and validated), but the application will not start.<n>		--enable-tcp-command-server=%<listeningPort><n>			Enable a TCP command server. This can be used to send commands controlling the application using a TCP port.<n>' ]
 		   ifFalse: [
-			   'NAME<n>		launchpad-start - Start the selected application<n>SYNOPSYS<n>		launchpad start [--help|-h] [--debug-mode] [--settings-file=%<filename>] [--enable-structured-logging] %<app> [%<parameters>]<n>DESCRIPTION<n>		Start the application selected via %<app>.<n><n><t><t>Application configuration is made by the command-line via %<parameters>, using environment variables or settings files.<n><n><t><t>Execute launchpad explain %<app> to get a list of valid configuration parameters.<n>OPTIONS<n>		-h, --help<n>			Print this help message and exit.<n>		--debug-mode<n>			Enable the debugging mode. The image will not quit on unexpected errors. This configuration can be used in the application to improve the debugging experience.<n>		--settings-file=%<filename><n>			Provide application configuration via a settings file. This option can occur several times to configure more than one settings file. Supported file settings formats are INI and JSON.<n>		--enable-structured-logging<n>			Enable structured logging. When enabled the log will be emitted in JSON format.<n>' ])
+			   'NAME<n>		launchpad-start - Start the selected application<n>SYNOPSYS<n>		launchpad start [--help|-h] [--debug-mode] [--settings-file=%<filename>] [--enable-structured-logging] [--dry-run] %<app> [%<parameters>]<n>DESCRIPTION<n>		Start the application selected via %<app>.<n><n><t><t>Application configuration is made by the command-line via %<parameters>, using environment variables or settings files.<n><n><t><t>Execute launchpad explain %<app> to get a list of valid configuration parameters.<n>OPTIONS<n>		-h, --help<n>			Print this help message and exit.<n>		--debug-mode<n>			Enable the debugging mode. The image will not quit on unexpected errors. This configuration can be used in the application to improve the debugging experience.<n>		--settings-file=%<filename><n>			Provide application configuration via a settings file. This option can occur several times to configure more than one settings file. Supported file settings formats are INI and JSON.<n>		--enable-structured-logging<n>			Enable structured logging. When enabled the log will be emitted in JSON format.<n><t><t>--dry-run<n><t><t><t>Perform a dry run of the application. All the configuration will be loaded (and validated), but the application will not start.<n>' ])
 		  expandMacros
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> expectedVerboseListOutput [
 
 	^ String streamContents: [ :stream | 
@@ -115,7 +116,7 @@ LaunchpadRootCommandTest >> expectedVerboseListOutput [
 		  ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> handle: arguments [
 
 	^ String streamContents: [ :stream | 
@@ -129,7 +130,7 @@ LaunchpadRootCommandTest >> handle: arguments [
 		  ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> handle: arguments onExitDo: aBlock [
 
 	^ String streamContents: [ :stream | 
@@ -146,7 +147,7 @@ LaunchpadRootCommandTest >> handle: arguments onExitDo: aBlock [
 		  ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> set: environmentVariableName to: value during: aBlock [
 
 	LanguagePlatform current os
@@ -157,14 +158,14 @@ LaunchpadRootCommandTest >> set: environmentVariableName to: value during: aBloc
 			environmentVariableName ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 LaunchpadRootCommandTest >> setUp [
 
 	super setUp.
 	command := LaunchpadRootCommand new
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LaunchpadRootCommandTest >> testAccessing [
 
 	| options subcommands |
@@ -194,7 +195,7 @@ LaunchpadRootCommandTest >> testAccessing [
 		assert: subcommands last name equals: 'explain'
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingExplainBrokenApplication [
 
 	| output |
@@ -208,7 +209,7 @@ LaunchpadRootCommandTest >> testHandlingExplainBrokenApplication [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingExplainGreeterApplication [
 
 	| output |
@@ -222,7 +223,7 @@ LaunchpadRootCommandTest >> testHandlingExplainGreeterApplication [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingExplainSubcommandHelp [
 
 	| output |
@@ -235,7 +236,7 @@ LaunchpadRootCommandTest >> testHandlingExplainSubcommandHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingExplainSubcommandShortHelp [
 
 	| output |
@@ -248,7 +249,7 @@ LaunchpadRootCommandTest >> testHandlingExplainSubcommandShortHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling main command' }
+{ #category : 'tests - handling main command' }
 LaunchpadRootCommandTest >> testHandlingHelpOption [
 
 	| output |
@@ -260,7 +261,7 @@ LaunchpadRootCommandTest >> testHandlingHelpOption [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingInvalidExplainSubcommandApp [
 
 	| output |
@@ -273,7 +274,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidExplainSubcommandApp [
 		assertLogRecordsMatch: #( '[ERROR] explain unknown application: wrong' )
 ]
 
-{ #category : #'tests - handling explain subcommand' }
+{ #category : 'tests - handling explain subcommand' }
 LaunchpadRootCommandTest >> testHandlingInvalidExplainSubcommandOption [
 
 	| output |
@@ -286,7 +287,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidExplainSubcommandOption [
 		assertLogRecordsMatch: #( '[ERROR] explain unknown option: --wrong' )
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingInvalidListSubcommandOption [
 
 	| output |
@@ -299,7 +300,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidListSubcommandOption [
 		assertLogRecordsMatch: #( '[ERROR] list unknown option: --wrong' )
 ]
 
-{ #category : #'tests - handling main command' }
+{ #category : 'tests - handling main command' }
 LaunchpadRootCommandTest >> testHandlingInvalidOption [
 
 	| output |
@@ -311,7 +312,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidOption [
 		assertLogRecordsMatch: #( '[ERROR] launchpad unknown option: --wrong' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingInvalidStartSubcommandApp [
 
 	| output |
@@ -325,7 +326,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidStartSubcommandApp [
 		assertLogRecordsMatch: #( '[ERROR] start unknown application: wrong' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingInvalidStartSubcommandOption [
 
 	| output |
@@ -339,7 +340,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidStartSubcommandOption [
 		assertLogRecordsMatch: #( '[ERROR] start unknown option: --wrong' )
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LaunchpadRootCommandTest >> testHandlingInvalidSubcommand [
 
 	| output |
@@ -351,7 +352,7 @@ LaunchpadRootCommandTest >> testHandlingInvalidSubcommand [
 		assertLogRecordsMatch: #( '[ERROR] launchpad unknown command: wrong' )
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingListSubcommand [
 
 	| output |
@@ -368,7 +369,7 @@ LaunchpadRootCommandTest >> testHandlingListSubcommand [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingListSubcommandHelp [
 
 	| output |
@@ -382,7 +383,7 @@ LaunchpadRootCommandTest >> testHandlingListSubcommandHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingListSubcommandShortHelp [
 
 	| output |
@@ -396,7 +397,7 @@ LaunchpadRootCommandTest >> testHandlingListSubcommandShortHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingListSubcommandShortVerboseMode [
 
 	| output |
@@ -410,7 +411,7 @@ LaunchpadRootCommandTest >> testHandlingListSubcommandShortVerboseMode [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling list subcommand' }
+{ #category : 'tests - handling list subcommand' }
 LaunchpadRootCommandTest >> testHandlingListSubcommandVerboseMode [
 
 	| output |
@@ -424,7 +425,7 @@ LaunchpadRootCommandTest >> testHandlingListSubcommandVerboseMode [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LaunchpadRootCommandTest >> testHandlingMissingSubcommandAndOption [
 
 	| output |
@@ -436,7 +437,7 @@ LaunchpadRootCommandTest >> testHandlingMissingSubcommandAndOption [
 		assertLogRecordsMatch: #( '[ERROR] Missing command or option.' )
 ]
 
-{ #category : #'tests - handling main command' }
+{ #category : 'tests - handling main command' }
 LaunchpadRootCommandTest >> testHandlingShortHelpOption [
 
 	| output |
@@ -448,7 +449,7 @@ LaunchpadRootCommandTest >> testHandlingShortHelpOption [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartBrokenApplication [
 
 	| output |
@@ -465,7 +466,7 @@ LaunchpadRootCommandTest >> testHandlingStartBrokenApplication [
 		   '[INFO] Obtaining configuration... [DONE]' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationInDebugMode [
 
 	| output |
@@ -481,7 +482,7 @@ LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationInDebugMode [
 			'[ERROR] Exit application' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationRaisingUnexpectedError [
 
 	| output |
@@ -499,7 +500,7 @@ LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationRaisingUnexpectedE
 			'[ERROR] Unexpected startup error: "Doh!"' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationRaisingUnexpectedErrorInDebugMode [
 
 	self
@@ -514,7 +515,7 @@ LaunchpadRootCommandTest >> testHandlingStartBrokenApplicationRaisingUnexpectedE
 		   '[INFO] Obtaining configuration... [DONE]' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplication [
 
 	| output |
@@ -538,7 +539,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplication [
 		'[INFO] Obtaining configuration... [DONE]' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationEnablingStructuredLogging [
 
 	| output |
@@ -563,7 +564,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationEnablingStructure
 		'[INFO] Exit application' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationInDebugMode [
 
 	| output |
@@ -587,7 +588,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationInDebugMode [
 		'[INFO] Exit application' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationLoadingSettingsFile [
 
 	| fileName |
@@ -621,7 +622,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationLoadingSettingsFi
 			]
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationLoadingSeveralSettingsFile [
 
 	| jsonFileName |
@@ -659,7 +660,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationLoadingSeveralSet
 			]
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationMissingMandatoryParameter [
 
 	| output |
@@ -681,7 +682,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationMissingMandatoryP
 		'[ERROR] Obtaining configuration... [FAILED]' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationMissingMandatoryParameterInDebugMode [
 
 	self
@@ -705,7 +706,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationMissingMandatoryP
 		'[ERROR] "Name" parameter not provided. You must provide one.' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationWithAllParameters [
 
 	| output |
@@ -729,7 +730,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationWithAllParameters
 		'[INFO] Obtaining configuration... [DONE]' )
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationWithMixedConfiguration [
 
 	| fileName |
@@ -764,7 +765,7 @@ LaunchpadRootCommandTest >> testHandlingStartGreeterApplicationWithMixedConfigur
 			]
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartSubcommandHelp [
 
 	| output |
@@ -778,7 +779,7 @@ LaunchpadRootCommandTest >> testHandlingStartSubcommandHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStartSubcommandShortHelp [
 
 	| output |
@@ -792,7 +793,7 @@ LaunchpadRootCommandTest >> testHandlingStartSubcommandShortHelp [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #'tests - handling start subcommand' }
+{ #category : 'tests - handling start subcommand' }
 LaunchpadRootCommandTest >> testHandlingStopBrokenApplicationWhileRunning [
 
 	| semaphore |
@@ -819,7 +820,7 @@ LaunchpadRootCommandTest >> testHandlingStopBrokenApplicationWhileRunning [
 		   '[INFO] Obtaining configuration... [DONE]' )
 ]
 
-{ #category : #'tests - handling main command' }
+{ #category : 'tests - handling main command' }
 LaunchpadRootCommandTest >> testHandlingVersionOption [
 
 	| output |
@@ -833,7 +834,7 @@ LaunchpadRootCommandTest >> testHandlingVersionOption [
 		assertThereAreNoLogRecords
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 LaunchpadRootCommandTest >> testPrintHelpOn [
 
 	| help |
@@ -861,7 +862,7 @@ COMMANDS
 '
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 LaunchpadRootCommandTest >> use: version asVersionDuring: aBlock [
 
 	| currentVersion |

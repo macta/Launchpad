@@ -1,23 +1,24 @@
 Class {
-	#name : #LaunchpadShortOption,
-	#superclass : #LaunchpadOption,
-	#category : #'Launchpad-Commands'
+	#name : 'LaunchpadShortOption',
+	#superclass : 'LaunchpadOption',
+	#category : 'Launchpad-Commands',
+	#package : 'Launchpad-Commands'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadShortOption class >> isAbstract [
 
 	<ignoreForCoverage>
 	^ self = LaunchpadShortOption
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadShortOption >> canHandle: argument [
 
 	^ ( super canHandle: argument ) or: [ argument = ( '-' , self shortName ) ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadShortOption >> printHelpOn: stream [
 
 	stream
@@ -28,7 +29,7 @@ LaunchpadShortOption >> printHelpOn: stream [
 	super printHelpOn: stream
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadShortOption >> printSuffixOn: stream [
 
 	stream
@@ -36,7 +37,7 @@ LaunchpadShortOption >> printSuffixOn: stream [
 		nextPutAll: self shortName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadShortOption >> shortName [
 
 	^ self subclassResponsibility

@@ -1,65 +1,67 @@
 Class {
-	#name : #LaunchpadTCPCommandServerOption,
-	#superclass : #LaunchpadOption,
+	#name : 'LaunchpadTCPCommandServerOption',
+	#superclass : 'LaunchpadOption',
 	#instVars : [
 		'command'
 	],
-	#category : #'Launchpad-Commands-Pharo'
+	#category : 'Launchpad-Commands-Pharo',
+	#package : 'Launchpad-Commands-Pharo'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 LaunchpadTCPCommandServerOption class >> for: aCommand [
 
 	^ self new initializeFor: aCommand
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadTCPCommandServerOption class >> isExtendedStartingOption [
 
 	^ true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 LaunchpadTCPCommandServerOption >> canHandle: argument [
 
 	^ argument beginsWith: '--' , self name , '='
 ]
 
-{ #category : #evaluating }
+{ #category : 'evaluating' }
 LaunchpadTCPCommandServerOption >> evaluateWithin: context handling: argument [
 
 	| listeningPort |
 
 	listeningPort := ( argument withoutFirst: self name size + 3 ) asNumber.
-	command enableTCPCommandServerListeningOn: listeningPort
+	command enableTCPCommandServerListeningOn: listeningPort.
+	^ context
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 LaunchpadTCPCommandServerOption >> initializeFor: aCommand [
 
 	command := aCommand
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadTCPCommandServerOption >> name [
 
 	^ 'enable-tcp-command-server'
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadTCPCommandServerOption >> printHelpOn: stream [
 
 	super printHelpOn: stream.
 	self printSuffixOn: stream
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 LaunchpadTCPCommandServerOption >> printSuffixOn: stream [
 
 	stream nextPutAll: '=<listeningPort>'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadTCPCommandServerOption >> summary [
 
 	^ 'Enable a TCP command server. This can be used to send commands controlling the application using a TCP port.'

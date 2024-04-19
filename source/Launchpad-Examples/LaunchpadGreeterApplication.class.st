@@ -1,16 +1,17 @@
 Class {
-	#name : #LaunchpadGreeterApplication,
-	#superclass : #LaunchpadApplication,
-	#category : #'Launchpad-Examples'
+	#name : 'LaunchpadGreeterApplication',
+	#superclass : 'LaunchpadApplication',
+	#category : 'Launchpad-Examples',
+	#package : 'Launchpad-Examples'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadGreeterApplication class >> commandName [
 
 	^ 'greeter'
 ]
 
-{ #category : #'private - accessing' }
+{ #category : 'private - accessing' }
 LaunchpadGreeterApplication class >> configurationParameters [
 
 	^ Array with:
@@ -20,19 +21,19 @@ LaunchpadGreeterApplication class >> configurationParameters [
 				    defaultingTo: '' )
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadGreeterApplication class >> description [
 
 	^ 'A greetings application'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadGreeterApplication class >> version [
 
 	^ 'v1.0.0'
 ]
 
-{ #category : #'private - activation' }
+{ #category : 'private - activation' }
 LaunchpadGreeterApplication >> basicStartWithin: context [
 
 	context outputStreamDo: [ :stream | 
@@ -44,19 +45,19 @@ LaunchpadGreeterApplication >> basicStartWithin: context [
 	self exitSuccess
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadGreeterApplication >> name [
 
 	^ self configuration name
 ]
 
-{ #category : #'error handling' }
+{ #category : 'error handling' }
 LaunchpadGreeterApplication >> stackTraceDumper [
 
 	^ NullStackTraceDumper new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 LaunchpadGreeterApplication >> title [
 
 	^ self configuration title

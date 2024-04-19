@@ -1,6 +1,6 @@
-Extension { #name : #LaunchpadStartApplicationCommand }
+Extension { #name : 'LaunchpadStartApplicationCommand' }
 
-{ #category : #'*Launchpad-Commands-Pharo' }
+{ #category : '*Launchpad-Commands-Pharo' }
 LaunchpadStartApplicationCommand >> enableTCPCommandServerListeningOn: listeningPort [
 
 	commandServer := TCPCommandServer listeningOn: listeningPort.

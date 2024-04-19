@@ -1,1 +1,1 @@
-Package { #name : #'Launchpad-Examples' }
+Package { #name : 'Launchpad-Examples' }

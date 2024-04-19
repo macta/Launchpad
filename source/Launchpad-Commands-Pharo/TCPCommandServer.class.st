@@ -1,28 +1,29 @@
 Class {
-	#name : #TCPCommandServer,
-	#superclass : #CommandServer,
+	#name : 'TCPCommandServer',
+	#superclass : 'CommandServer',
 	#instVars : [
 		'listeningPort',
 		'commmands',
 		'connectionSocket',
 		'serverProcess'
 	],
-	#category : #'Launchpad-Commands-Pharo'
+	#category : 'Launchpad-Commands-Pharo',
+	#package : 'Launchpad-Commands-Pharo'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 TCPCommandServer class >> listeningOn: port [
 
 	^ self new initializeListeningOn: port
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TCPCommandServer >> initializeConnectionSocket [
 
 	connectionSocket := Socket newTCP
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 TCPCommandServer >> initializeListeningOn: port [
 
 	listeningPort := port.
@@ -30,19 +31,19 @@ TCPCommandServer >> initializeListeningOn: port [
 	self initializeConnectionSocket
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 TCPCommandServer >> listeningPort [
 
 	^ listeningPort
 ]
 
-{ #category : #registering }
+{ #category : 'registering' }
 TCPCommandServer >> registerCommandNamed: commandName executing: aBlock [
 
 	commmands at: commandName put: aBlock
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 TCPCommandServer >> serverLoop [
 
 	^ [ 
@@ -57,7 +58,7 @@ TCPCommandServer >> serverLoop [
 	  ] repeat
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 TCPCommandServer >> start [
 
 	LogRecord emitInfo:
@@ -74,7 +75,7 @@ TCPCommandServer >> start [
 	serverProcess resume
 ]
 
-{ #category : #controlling }
+{ #category : 'controlling' }
 TCPCommandServer >> stop [
 
 	serverProcess ifNotNil: #terminate.
