@@ -15,12 +15,15 @@ jobs:
         version:
           - latest
           - v5
-    name: Scheduled scan for vulnerabilities ${{ matrix.version }}
+        package:
+          - launchpad
+          - launchpad-gs64-3.7.1
+    name: Scheduled scan for vulnerabilities ${{ matrix.package }}-${{ matrix.version }}
     steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ghcr.io/${{ github.repository_owner }}/launchpad:${{ matrix.version}}
+          image-ref: ghcr.io/${{ github.repository_owner }}/${{ matrix.package }}:${{ matrix.version}}
           format: 'sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
