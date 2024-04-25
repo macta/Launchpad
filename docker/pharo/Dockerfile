@@ -3,10 +3,10 @@ FROM ghcr.io/ba-st/pharo:v11.0.0
 COPY --chown=pharo:users ./launchpad* ./
 USER root
 RUN set -eu; \
-  apt-get update; \
-  apt-get upgrade; \
-  apt-get install --assume-yes --no-install-recommends netcat-openbsd; \
-  apt-get clean; \
+  apt update; \
+  apt upgrade --assume-yes; \
+  apt install --assume-yes --no-install-recommends netcat-openbsd; \
+  apt clean; \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*; \
   ln -s /opt/pharo/launchpad /usr/local/bin/launchpad; \
   ln -s /opt/pharo/launchpad-list /usr/local/bin/launchpad-list; \
